@@ -158,7 +158,7 @@ ALTER TABLE `tests_questions`
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`u_id`);
+  ADD PRIMARY KEY (`u_id`,'u_email');
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
