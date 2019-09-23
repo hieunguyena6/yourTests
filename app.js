@@ -10,7 +10,10 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 
 var app = express();
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', [path.join(__dirname, 'views'),
+                  path.join(__dirname, 'views/guest'),
+                  path.join(__dirname, 'views/user'),
+                  path.join(__dirname, 'views/general')]);
 app.set('view engine', 'ejs');
 var con = mysql.createConnection({
   database: "yourtest",
@@ -25,10 +28,9 @@ con.connect(function(err) {
 });
 global.db = con;
 app.use(session({
-    secret: 'something',
-    cookie: {
-        maxAge: 1000 * 50 * 5 //đơn vị là milisecond
-    }
+  secret: 'mySecretKey',
+  resave: true,
+  saveUninitialized: false
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
@@ -40,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
+app.use('/logout', indexRouter);
 app.use('/login', indexRouter);
 app.use('/register', indexRouter);
 app.use(function(req, res, next) {
