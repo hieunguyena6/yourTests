@@ -30,6 +30,7 @@ router.post('/register', function(req, res) {
     var user = [[post.email,post.password,"0",post.firstname,post.lastname]];
     db.query(sql, [user], function (err, result) {
       if (err) {
+	console.log(err);
         res.render('general/register', {message: 'Tài khoản đã tồn tại'});
       }
       else {

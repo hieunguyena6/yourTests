@@ -16,10 +16,10 @@ app.set('views', [path.join(__dirname, 'views'),
                   path.join(__dirname, 'views/general')]);
 app.set('view engine', 'ejs');
 var con = mysql.createConnection({
-  database: "yourtest",
+  database: "real1",
   host: "localhost",
   user: "root",
-  password: ""
+  password: "123456"
 });
 
 con.connect(function(err) {
