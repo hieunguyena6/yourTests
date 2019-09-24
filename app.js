@@ -16,7 +16,7 @@ app.set('views', [path.join(__dirname, 'views'),
                   path.join(__dirname, 'views/general')]);
 app.set('view engine', 'ejs');
 var con = mysql.createConnection({
-  database: "yourtest",
+  database: "yourtests",
   host: "localhost",
   user: "root",
   password: ""
