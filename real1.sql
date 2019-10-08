@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th9 17, 2019 lúc 12:13 AM
+-- Thời gian đã tạo: Th9 24, 2019 lúc 09:47 PM
 -- Phiên bản máy phục vụ: 5.7.27-0ubuntu0.18.04.1
 -- Phiên bản PHP: 7.2.19-0ubuntu0.18.04.2
 
@@ -36,14 +36,28 @@ CREATE TABLE `answers` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `do_detail`
+--
+
+CREATE TABLE `do_detail` (
+  `do_id` int(10) DEFAULT NULL,
+  `q_id` int(10) DEFAULT NULL,
+  `answers` varchar(500) COLLATE utf8_vietnamese_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `do_test`
 --
 
 CREATE TABLE `do_test` (
+  `do_id` int(10) NOT NULL,
   `u_id` int(6) DEFAULT NULL,
   `t_id` int(10) DEFAULT NULL,
-  `mark` double(2,1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `mark` int(3) DEFAULT NULL,
+  `timeRemain` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 -- --------------------------------------------------------
 
@@ -54,7 +68,7 @@ CREATE TABLE `do_test` (
 CREATE TABLE `questions` (
   `q_id` int(10) NOT NULL,
   `u_id` int(6) NOT NULL,
-  `q_content` varchar(500) DEFAULT NULL
+  `q_content` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -66,9 +80,22 @@ CREATE TABLE `questions` (
 CREATE TABLE `q_types` (
   `q_id` int(10) DEFAULT NULL,
   `q_subClass` varchar(20) DEFAULT NULL,
-  `q_level` varchar(20) DEFAULT NULL,
-  `q_ansType` varchar(20) DEFAULT NULL
+  `q_ansType` varchar(20) DEFAULT NULL,
+  `u_id` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `reports`
+--
+
+CREATE TABLE `reports` (
+  `t_id` int(10) DEFAULT NULL,
+  `u_idto` int(10) DEFAULT NULL,
+  `r_content` varchar(500) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `u_idfrom` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 -- --------------------------------------------------------
 
@@ -96,6 +123,18 @@ CREATE TABLE `tests_questions` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `t_types`
+--
+
+CREATE TABLE `t_types` (
+  `t_id` int(10) DEFAULT NULL,
+  `t_time` time DEFAULT NULL,
+  `t_subClass` varchar(100) COLLATE utf8_vietnamese_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `users`
 --
 
@@ -109,6 +148,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`u_id`, `u_email`, `u_password`, `u_role`, `u_firstName`, `u_lastName`) VALUES
+(2, '1@a', '1234', '0', 'Trương', 'Hoàng'),
+(5, '1@ae', '1234', '0', 'Trương', 'Hoàng');
+
+--
 -- Chỉ mục cho các bảng đã đổ
 --
 
@@ -120,9 +167,17 @@ ALTER TABLE `answers`
   ADD KEY `q_id` (`q_id`);
 
 --
+-- Chỉ mục cho bảng `do_detail`
+--
+ALTER TABLE `do_detail`
+  ADD KEY `do_id` (`do_id`),
+  ADD KEY `q_id` (`q_id`);
+
+--
 -- Chỉ mục cho bảng `do_test`
 --
 ALTER TABLE `do_test`
+  ADD PRIMARY KEY (`do_id`),
   ADD KEY `u_id` (`u_id`),
   ADD KEY `t_id` (`t_id`);
 
@@ -137,7 +192,16 @@ ALTER TABLE `questions`
 -- Chỉ mục cho bảng `q_types`
 --
 ALTER TABLE `q_types`
-  ADD KEY `q_id` (`q_id`);
+  ADD KEY `q_id` (`q_id`),
+  ADD KEY `u_id` (`u_id`);
+
+--
+-- Chỉ mục cho bảng `reports`
+--
+ALTER TABLE `reports`
+  ADD KEY `t_id` (`t_id`),
+  ADD KEY `u_idreport` (`u_idto`),
+  ADD KEY `u_idfrom` (`u_idfrom`);
 
 --
 -- Chỉ mục cho bảng `tests`
@@ -154,10 +218,64 @@ ALTER TABLE `tests_questions`
   ADD KEY `q_id` (`q_id`);
 
 --
+-- Chỉ mục cho bảng `t_types`
+--
+ALTER TABLE `t_types`
+  ADD KEY `t_id` (`t_id`);
+
+--
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`u_id`,`u_email`);
+  ADD PRIMARY KEY (`u_id`,`u_email`),
+  ADD UNIQUE KEY `u_email` (`u_email`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `users`
+--
+ALTER TABLE `users`
+  MODIFY `u_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `do_detail`
+--
+ALTER TABLE `do_detail`
+  ADD CONSTRAINT `do_detail_ibfk_1` FOREIGN KEY (`do_id`) REFERENCES `do_test` (`do_id`),
+  ADD CONSTRAINT `do_detail_ibfk_2` FOREIGN KEY (`q_id`) REFERENCES `questions` (`q_id`);
+
+--
+-- Các ràng buộc cho bảng `do_test`
+--
+ALTER TABLE `do_test`
+  ADD CONSTRAINT `do_test_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`),
+  ADD CONSTRAINT `do_test_ibfk_2` FOREIGN KEY (`t_id`) REFERENCES `tests` (`t_id`);
+
+--
+-- Các ràng buộc cho bảng `q_types`
+--
+ALTER TABLE `q_types`
+  ADD CONSTRAINT `q_types_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`);
+
+--
+-- Các ràng buộc cho bảng `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `tests` (`t_id`),
+  ADD CONSTRAINT `reports_ibfk_2` FOREIGN KEY (`u_idto`) REFERENCES `users` (`u_id`),
+  ADD CONSTRAINT `reports_ibfk_3` FOREIGN KEY (`u_idfrom`) REFERENCES `users` (`u_id`);
+
+--
+-- Các ràng buộc cho bảng `t_types`
+--
+ALTER TABLE `t_types`
+  ADD CONSTRAINT `t_types_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `tests` (`t_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

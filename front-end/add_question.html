@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>survey</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./css/log_reg.css">
+  
+</head>
+<body class = "bg-light py-3 py-lg-5">
+	<div class = "container">
+		<div class = "text-center">
+			<h1 class = "display-4">Chọn dạng câu hỏi</h1>
+		</div>
+		<ul class = "nav nav-tabs nav-justified" id = "nav" role = "tablist">
+			<li class = "nav-item">
+				<a href = "#" class = "nav-link h4 mb-0" id = "type-1" aria-controls = "step-1" aria-selected = "true">Dạng 1<br/><small>chọn đúng/sai</small></a>
+      		</li>
+			<li class = "nav-item">
+				<a href = "#" class = "nav-link h4 mb-0" id = "type-2" aria-controls = "step-2" aria-selected = "false">Dạng 2<br/><small>chọn 1 đáp án</small></a>
+			</li>
+			<li class = "nav-item">
+				<a href = "#" class = "nav-link h4 mb-0" id = "type-3" aria-controls = "step-3" aria-selected = "false">Dạng 3<br/><small>chọn nhiều đáp án</small></a>
+			</li>
+		</ul>
+	</div>
+<!-- end option -->
+	<form class = "container" id = "true-false" style = "display: none;">
+		<div class = "form-group">
+			<label for = "ques-type1">Nhập câu hỏi:</label>
+			<textarea class = "form-control" id = "ques-type1" rows = "3"></textarea>
+		</div>
+		<div class = "form-group">
+			<label for = "answer-type1">Nhập đáp án(đúng/sai):</label>
+			<textarea class = "form-control" id = "answer-type1" rows = "1"></textarea>
+		</div>
+		<input type = "submit" class = "btn btn-success" value = "Lưu">
+		<button type="button" class="btn btn-danger">Thoát</button>
+	</form>
+<!-- end true-false question -->
+	
+	<form class = "container" id = "choise" style = "display: none;">
+		<div class = "form-group">
+			<label for = "ques-type2">Nhập câu hỏi:</label>
+			<textarea class = "form-control" id = "ques-type2" rows = "3"></textarea>
+		</div>
+
+		<div>Nhập đáp án:</div>
+		<div class="form-group has-success row"> 
+			<label class="control-label col-sm-1" for="id1">A: </label> 				
+			<input class="form-control col-sm-6" type="text" id="id1"> 
+		</div>
+		<div class="form-group has-success row"> 
+			<label class="control-label col-sm-1" for="id2">B: </label> 
+			<input class="form-control col-sm-6" type="text" id="id2"> 
+		</div>
+		<div class="form-group has-success row"> 
+			<label class="control-label col-sm-1" for="id3">C: </label> 	
+			<input class="form-control col-sm-6" type="text" id="id3">
+		</div>
+		<div class="form-group has-success row"> 
+			<label class="control-label col-sm-1" for="id4">D: </label>
+			<input class="form-control col-sm-6" type="text" id="id4"> 
+		</div>
+
+		<div class = "form-group">
+		<label for = "answer-type2">Nhập đáp án đúng:</label>
+		<textarea class = "form-control" id = "answer-type2" rows = "1"></textarea>
+		</div>
+		<input type = "submit" class = "btn btn-success" value = "Lưu">
+		<button type="button" class="btn btn-danger">Thoát</button>
+	</form>
+ <!-- end choise question -->
+
+	<form class = "container" id = "multichoise" style = "display: none;">
+		<div class = "form-group">
+			<label for = "ques-type3">Nhập câu hỏi:</label>
+			<textarea class = "form-control" id = "ques-type3" rows = "3"></textarea>
+		</div>
+		<div>
+			<div>Nhập đáp án:</div>
+			<div class="form-group has-success " id = "ans1"> 
+				<label class="control-label col-sm-1" for="da1">A: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da1"> 
+			</div>
+
+			<div class="form-group has-success " id = "ans2" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da2">B: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da2"> 
+			</div>
+
+			<div class="form-group has-success " id = "ans3" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da3">C: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da3"> 
+			</div>
+
+			<div class="form-group has-success" id = "ans4" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da4" >D: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da4"> 
+			</div>
+			<div class="form-group has-success" id = "ans5" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da5">E: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da5"> 
+			</div>
+			<div class="form-group has-success" id = "ans6" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da6">F: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da6"> 
+			</div>
+			<div class="form-group has-success" id = "ans7" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da7">G: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da7"> 
+			</div>
+			<div class="form-group has-success" id = "ans8" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da8">H: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da8"> 
+			</div>
+			<div class="form-group has-success " id = "ans9" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da9">I: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da9"> 
+			</div>
+			<div class="form-group has-success " id = "ans10" style = "display: none;"> 
+				<label class="control-label col-sm-1" for="da10">J: </label> 				
+				<input class="form-control col-sm-6" type="text" id="da10"> 
+			</div>
+
+		</div>
+		<div class = "form-group">
+			<label for = "answer-type3">Nhập các đáp án đúng(eg: A, B, ...):</label>	
+			<textarea class = "form-control" id = "answer-type3" rows = "1"></textarea>
+		</div>
+		<input type = "submit" class = "btn btn-success" value = "Lưu">
+		<button type="button" class="btn btn-danger">Thoát</button>
+	</form>
+<!-- end multichoise question -->
+
+	<script type = "text/javascript">
+		document.getElementById("type-1").onclick = function(){
+			document.getElementById("true-false").style.display = "block";
+			document.getElementById("choise").style.display = "none";
+			document.getElementById("multichoise").style.display = "none";
+		}
+		document.getElementById("type-2").onclick = function(){
+			document.getElementById("true-false").style.display = "none";
+			document.getElementById("choise").style.display = "block";
+			document.getElementById("multichoise").style.display = "none";
+		}
+		document.getElementById("type-3").onclick = function(){
+			document.getElementById("true-false").style.display = "none";
+			document.getElementById("choise").style.display = "none";
+			document.getElementById("multichoise").style.display = "block";
+		}
+// end option-type
+
+		document.getElementById("da1").onclick = function(){
+			document.getElementById("ans2").style.display = "block";
+		}
+		document.getElementById("da2").onclick = function(){
+			document.getElementById("ans3").style.display = "block";
+		}
+		document.getElementById("da3").onclick = function(){
+			document.getElementById("ans4").style.display = "block";
+		}
+		document.getElementById("da4").onclick = function(){
+			document.getElementById("ans5").style.display = "block";
+		}
+		document.getElementById("da5").onclick = function(){
+			document.getElementById("ans6").style.display = "block";
+		}
+		document.getElementById("da6").onclick = function(){
+			document.getElementById("ans7").style.display = "block";
+		}
+		document.getElementById("da7").onclick = function(){
+			document.getElementById("ans8").style.display = "block";
+		}
+		document.getElementById("da8").onclick = function(){
+			document.getElementById("ans9").style.display = "block";
+		}
+		document.getElementById("da9").onclick = function(){
+			document.getElementById("ans10").style.display = "block";
+		}
+	</script>
+
+</body>
+</html>
