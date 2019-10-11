@@ -23,8 +23,53 @@ router.post('/new', function(req, res) {
   }
   else {
     var post = req.body;
-    var question = 
-    res.render('user/add-question', {message : 'Đã lưu câu hỏi !', fullname : req.session.fullname});
+    var question = [[req.session.user_id,post.content,post.type,post.linhvuc]];
+    var sql = "INSERT INTO questions(u_id,q_content,q_type,q_linhvuc) VALUES ?";
+    db.query(sql, [question], function (err, result) {
+      if (err) {
+        console.log(err);
+        res.render('user/add-question', {message : 'Thêm câu hỏi lỗi !', fullname : req.session.fullname});
+      }
+      else {
+        if (post.type == 2) {
+          var answers = [];
+          for (var i = 0; i < 4; i++) {
+            answers.push([result.insertId,post.ans[i],false]);
+          }
+          sql = "INSERT INTO answers(q_id,a_data,a_true) VALUES ?";
+          db.query(sql, [answers], function(error, kq) {
+            if (error) {
+              console.log(error);
+              res.render('user/add-question', {message : 'Thêm câu hỏi lỗi !', fullname : req.session.fullname});
+            }
+            else {
+              res.render('user/add-question', {message : 'Đã lưu câu hỏi !', fullname : req.session.fullname});
+            }
+          })
+        }
+        if(post.type == 3) {
+          var answers = [];
+          for (var i = 0; i < post.ans.length; i++) {
+            if (post.ans[i] == "") break;
+            answers.push([result.insertId,post.ans[i],(i == post.correct_ans.toUpperCase().charCodeAt(0) - 65) ? true : false]);
+          }
+
+          sql = "INSERT INTO answers(q_id,a_data,a_true) VALUES ?";
+          db.query(sql, [answers], function(error, kq) {
+            if (error) {
+              console.log(error);
+              res.render('user/add-question', {message : 'Thêm câu hỏi lỗi !', fullname : req.session.fullname});
+            }
+            else {
+              res.render('user/add-question', {message : 'Đã lưu câu hỏi !', fullname : req.session.fullname});
+            }
+          })
+        }
+        else {
+          res.render('user/add-question', {message : 'Đã lưu câu hỏi !', fullname : req.session.fullname});
+        }
+      }
+    })
   };
 });
 

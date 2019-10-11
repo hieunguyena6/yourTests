@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('general/login.ejs', {message : req.flash('message')});
+  res.render('general/login', {message : req.flash('message')});
 });
 
 router.get('/register', function(req, res) {
@@ -22,6 +22,9 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
+router.get('/profile', function(req, res) {
+  res.render('user/profile', {message: '', fullname : req.session.fullname});
+});
 
 router.post('/register', function(req, res) {
     var post = req.body;

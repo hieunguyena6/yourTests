@@ -47,6 +47,7 @@ app.use('/', userRouter);
 app.use('/logout', userRouter);
 app.use('/login', userRouter);
 app.use('/register', userRouter);
+app.use('/profile', userRouter);
 app.use('/questions', questionRouter);
 
 app.use(function(req, res, next) {
