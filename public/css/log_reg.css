@@ -34,10 +34,10 @@ form .form-group p{
 form p{
     color:white;
 }
-.form-control {
+.form-control { 
     margin-bottom: 10px;
 }
-.login-screen-bg {
+.login-screen-bg {  
     background-color: #EFEFEF;
 }
 form a{
@@ -47,4 +47,18 @@ form a{
 form a:hover{
     color:#007FAA;
     text-decoration: underline;
+}
+
+input[type="radio"] {
+    margin-top:15px;
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+}
+
+input[type="checkbox"] {
+    margin-top:15px;
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
 }

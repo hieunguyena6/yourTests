@@ -48,3 +48,17 @@ form a:hover{
     color:#007FAA;
     text-decoration: underline;
 }
+
+input[type="radio"] {
+    margin-top:15px;
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+}
+
+input[type="checkbox"] {
+    margin-top:15px;
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+}

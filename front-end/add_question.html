@@ -6,10 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>survey</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="./css/log_reg.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" href="./css/log_reg.css">
   
 </head>
 <body class = "bg-light py-3 py-lg-5">
@@ -36,11 +36,12 @@
 			<textarea class = "form-control" id = "ques-type1" rows = "3"></textarea>
 		</div>
 		<div class = "form-group">
-			<label for = "answer-type1">Nhập đáp án(đúng/sai):</label>
-			<textarea class = "form-control" id = "answer-type1" rows = "1"></textarea>
+			<div>Đáp án:</div>
+			<input type = "radio" name = "true_ques"/> Đúng<br/>
+			<input type = "radio" name = "true_ques"/> Sai
 		</div>
-		<input type = "submit" class = "btn btn-success" value = "Lưu">
-		<button type="button" class="btn btn-danger">Thoát</button>
+		<button type = "button" class = "btn btn-success"> Lưu</button>
+		<button type = "button" class = "btn btn-danger"> Thoát</button>
 	</form>
 <!-- end true-false question -->
 	
@@ -49,29 +50,33 @@
 			<label for = "ques-type2">Nhập câu hỏi:</label>
 			<textarea class = "form-control" id = "ques-type2" rows = "3"></textarea>
 		</div>
-
-		<div>Nhập đáp án:</div>
+		<div class = "form-group row">
+			<div class = "col-sm-2">Nhập đáp án:</div>
+			<div class = "col-sm-6"></div>
+			<div>Đáp án đúng</div>
+		</div>
 		<div class="form-group has-success row"> 
 			<label class="control-label col-sm-1" for="id1">A: </label> 				
 			<input class="form-control col-sm-6" type="text" id="id1"> 
+			<input type = "radio" name = "single_true" class = "col-sm-3"> 
 		</div>
 		<div class="form-group has-success row"> 
 			<label class="control-label col-sm-1" for="id2">B: </label> 
 			<input class="form-control col-sm-6" type="text" id="id2"> 
+			<input type = "radio" name = "single_true" class = "col-sm-3"> 
 		</div>
 		<div class="form-group has-success row"> 
 			<label class="control-label col-sm-1" for="id3">C: </label> 	
 			<input class="form-control col-sm-6" type="text" id="id3">
+			<input type = "radio" name = "single_true" class = "col-sm-3"> 
 		</div>
 		<div class="form-group has-success row"> 
 			<label class="control-label col-sm-1" for="id4">D: </label>
 			<input class="form-control col-sm-6" type="text" id="id4"> 
+			<input type = "radio" name = "single_true" class = "col-sm-3"> 
 		</div>
 
-		<div class = "form-group">
-		<label for = "answer-type2">Nhập đáp án đúng:</label>
-		<textarea class = "form-control" id = "answer-type2" rows = "1"></textarea>
-		</div>
+		
 		<input type = "submit" class = "btn btn-success" value = "Lưu">
 		<button type="button" class="btn btn-danger">Thoát</button>
 	</form>
@@ -83,58 +88,123 @@
 			<textarea class = "form-control" id = "ques-type3" rows = "3"></textarea>
 		</div>
 		<div>
-			<div>Nhập đáp án:</div>
+		<div class = "form-group row">
+			<div class = "col-sm-2">Nhập đáp án:</div>
+			<div class = "col-sm-6"></div>
+			<div >Đáp án đúng</div>
+		</div>
 			<div class="form-group has-success " id = "ans1"> 
-				<label class="control-label col-sm-1" for="da1">A: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da1"> 
+				<label class="control-label col-sm-1" for="a">A: </label>
+				<div class = "row"> 				
+					<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="a"> 
+					<div class = "col-sm-2"></div>
+					<input type ="checkbox" name = "mul_true"/>
+				</div>
+				<input type = "submit" class = "btn btn-success" id = "add1" value = "Thêm">
 			</div>
 
 			<div class="form-group has-success " id = "ans2" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da2">B: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da2"> 
+				<label class="control-label col-sm-1" for="b">B: </label> 
+				<div class = "row"> 				
+					<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="b"> 
+					<div class = "col-sm-2"></div>
+					<input type ="checkbox" name = "mul_true"/>
+				</div>
+				<input type = "submit" class = "btn btn-success" id = "add2" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del2">Xóa</button>
 			</div>
 
 			<div class="form-group has-success " id = "ans3" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da3">C: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da3"> 
+				<label class="control-label col-sm-1" for="c">C: </label> 				
+				<div class = "row">	
+					<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="c"> 
+					<div class = "col-sm-2"></div>
+					<input type ="checkbox" name = "mul_true"/>
+				</div>
+				<input type = "submit" class = "btn btn-success" id = "add3" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del3">Xóa</button>
 			</div>
 
 			<div class="form-group has-success" id = "ans4" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da4" >D: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da4"> 
+				<label class="control-label col-sm-1" for="d" >D: </label> 				
+				<div class = "row"> 				
+						<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="d"> 
+						<div class = "col-sm-2"></div>
+						<input type ="checkbox" name = "mul_true"/>
+					</div> 
+				<input type = "submit" class = "btn btn-success" id = "add4" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del4">Xóa</button>
 			</div>
 			<div class="form-group has-success" id = "ans5" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da5">E: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da5"> 
+				<label class="control-label col-sm-1" for="e">E: </label> 				
+				<div class = "row"> 				
+						<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="e"> 
+						<div class = "col-sm-2"></div>
+						<input type ="checkbox" name = "mul_true"/>
+					</div>
+				<input type = "submit" class = "btn btn-success" id = "add5" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del5">Xóa</button> 
 			</div>
 			<div class="form-group has-success" id = "ans6" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da6">F: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da6"> 
+				<label class="control-label col-sm-1" for="f">F: </label> 				
+				<div class = "row"> 				
+						<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="f"> 
+						<div class = "col-sm-2"></div>
+						<input type ="checkbox" name = "mul_true"/>
+					</div>
+				<input type = "submit" class = "btn btn-success" id = "add6" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del6">Xóa</button>
 			</div>
 			<div class="form-group has-success" id = "ans7" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da7">G: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da7"> 
+				<label class="control-label col-sm-1" for="g">G: </label> 				
+				<div class = "row"> 				
+						<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="g"> 
+						<div class = "col-sm-2"></div>
+						<input type ="checkbox" name = "mul_true"/>
+					</div> 
+				<input type = "submit" class = "btn btn-success" id = "add7" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del7">Xóa</button>
 			</div>
 			<div class="form-group has-success" id = "ans8" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da8">H: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da8"> 
+				<label class="control-label col-sm-1" for="h">H: </label> 				
+                <div class = "row"> 				
+						<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="h"> 
+						<div class = "col-sm-2"></div>
+						<input type ="checkbox" name = "mul_true"/>
+					</div>
+				<input type = "submit" class = "btn btn-success" id = "add8" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del8">Xóa</button>
 			</div>
 			<div class="form-group has-success " id = "ans9" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da9">I: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da9"> 
+				<label class="control-label col-sm-1" for="i">I: </label> 				
+				<div class = "row"> 				
+						<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="i"> 
+						<div class = "col-sm-2"></div>
+						<input type ="checkbox" name = "mul_true"/>
+					</div>
+				<input type = "submit" class = "btn btn-success" id = "add9" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del9">Xóa</button>
 			</div>
 			<div class="form-group has-success " id = "ans10" style = "display: none;"> 
-				<label class="control-label col-sm-1" for="da10">J: </label> 				
-				<input class="form-control col-sm-6" type="text" id="da10"> 
+				<label class="control-label col-sm-1" for="j">J: </label> 				
+				<div class = "row"> 				
+						<input class="form-control col-sm-6" style = "margin-left: 10px;" type="text" id="j"> 
+						<div class = "col-sm-2"></div>
+						<input type ="checkbox" name = "mul_true"/>
+					</div> 
+				<input type = "submit" class = "btn btn-success" id = "add10" value = "Thêm">
+				<button type="button" class="btn btn-danger" id = "del10">Xóa</button>
 			</div>
 
 		</div>
-		<div class = "form-group">
-			<label for = "answer-type3">Nhập các đáp án đúng(eg: A, B, ...):</label>	
-			<textarea class = "form-control" id = "answer-type3" rows = "1"></textarea>
+	<div class = "form-group row">
+		<div class = "col-sm-10"></div>
+		<div class = "col-sm-2">
+			<input type = "submit" class = "btn btn-success" value = "Lưu">
+		
+			<button type="button" class="btn btn-danger">Thoát</button>
 		</div>
-		<input type = "submit" class = "btn btn-success" value = "Lưu">
-		<button type="button" class="btn btn-danger">Thoát</button>
+	</div>
 	</form>
 <!-- end multichoise question -->
 
@@ -156,32 +226,104 @@
 		}
 // end option-type
 
-		document.getElementById("da1").onclick = function(){
+		document.getElementById("add1").onclick = function(){
 			document.getElementById("ans2").style.display = "block";
+            document.getElementById("add1").style.display="none";
 		}
-		document.getElementById("da2").onclick = function(){
+		document.getElementById("add2").onclick = function(){
 			document.getElementById("ans3").style.display = "block";
+            document.getElementById("add2").style.display="none";
+            document.getElementById("del2").style.display="none";
 		}
-		document.getElementById("da3").onclick = function(){
+		document.getElementById("add3").onclick = function(){
 			document.getElementById("ans4").style.display = "block";
+            document.getElementById("add3").style.display="none";
+            document.getElementById("del3").style.display="none";
 		}
-		document.getElementById("da4").onclick = function(){
+		document.getElementById("add4").onclick = function(){
 			document.getElementById("ans5").style.display = "block";
+            document.getElementById("add4").style.display="none";
+            document.getElementById("del4").style.display="none";
 		}
-		document.getElementById("da5").onclick = function(){
+        document.getElementById("add5").onclick = function(){
 			document.getElementById("ans6").style.display = "block";
+            document.getElementById("add5").style.display="none";
+            document.getElementById("del5").style.display="none";
 		}
-		document.getElementById("da6").onclick = function(){
+        document.getElementById("add6").onclick = function(){
 			document.getElementById("ans7").style.display = "block";
+            document.getElementById("add6").style.display="none";
+            document.getElementById("del6").style.display="none";
 		}
-		document.getElementById("da7").onclick = function(){
+        document.getElementById("add7").onclick = function(){
 			document.getElementById("ans8").style.display = "block";
+            document.getElementById("add7").style.display="none";
+            document.getElementById("del7").style.display="none";
 		}
-		document.getElementById("da8").onclick = function(){
+        document.getElementById("add8").onclick = function(){
 			document.getElementById("ans9").style.display = "block";
+            document.getElementById("add8").style.display="none";
+            document.getElementById("del8").style.display="none";
 		}
-		document.getElementById("da9").onclick = function(){
+        document.getElementById("add9").onclick = function(){
 			document.getElementById("ans10").style.display = "block";
+            document.getElementById("add9").style.display="none";
+            document.getElementById("del9").style.display="none";
+		}
+// end add question
+
+        document.getElementById("del2").onclick = function(){
+			document.getElementById("ans2").style.display = "none";
+            document.getElementById("add1").style.display="block";
+            document.getElementById("ans1").style.display="block";
+		}
+        document.getElementById("del3").onclick = function(){
+			document.getElementById("ans3").style.display = "none";
+            document.getElementById("add2").style.display="inline";
+            document.getElementById("del2").style.display="inline";
+            document.getElementById("ans2").style.display="block";
+		}
+        document.getElementById("del4").onclick = function(){
+			document.getElementById("ans4").style.display = "none";
+            document.getElementById("add3").style.display="inline";
+            document.getElementById("del3").style.display="inline";
+            document.getElementById("ans3").style.display="block";
+		}
+        document.getElementById("del5").onclick = function(){
+			document.getElementById("ans5").style.display = "none";
+            document.getElementById("add4").style.display="inline";
+            document.getElementById("del4").style.display="inline";
+            document.getElementById("ans4").style.display="block";
+		}
+        document.getElementById("del6").onclick = function(){
+			document.getElementById("ans6").style.display = "none";
+            document.getElementById("add5").style.display="inline";
+            document.getElementById("del5").style.display="inline";
+            document.getElementById("ans5").style.display="block";
+		}
+        document.getElementById("del7").onclick = function(){
+			document.getElementById("ans7").style.display = "none";
+            document.getElementById("add6").style.display="inline";
+            document.getElementById("del6").style.display="inline";
+            document.getElementById("ans6").style.display="block";
+		}
+        document.getElementById("del8").onclick = function(){
+			document.getElementById("ans8").style.display = "none";
+            document.getElementById("add7").style.display="inline";
+            document.getElementById("del7").style.display="inline";
+            document.getElementById("ans7").style.display="block";
+		}
+        document.getElementById("del9").onclick = function(){
+			document.getElementById("ans9").style.display = "none";
+            document.getElementById("add8").style.display="inline";
+            document.getElementById("del8").style.display="inline";
+            document.getElementById("ans8").style.display="block";
+		}
+        document.getElementById("del10").onclick = function(){
+			document.getElementById("ans10").style.display = "none";
+            document.getElementById("add9").style.display="inline";
+            document.getElementById("del9").style.display="inline";
+            document.getElementById("ans9").style.display="block";
 		}
 	</script>
 
