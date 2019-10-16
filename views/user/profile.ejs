@@ -1,189 +1,273 @@
 <% include header-login %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="js/active.js"></script>
+<script src="js/login.js"></script>
+<div class="container" style="margin-top:20px;">
 
-<link rel="stylesheet" href="css/profile.css" >
+  <div class="tab">
+    <button class="tablinks" onclick="display_info(event, 'user_info')" id="defaultOpen">
+      <i class="fa fa-user"></i>
+      <a></aclass> Thông tin cá nhân</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'info_edit')">
+      <i class="fas fa-pen"></i>
+      <a> Chỉnh sửa thông tin</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'do_test')">
+      <i class="fa fa-book"></i>
+      <a> Số bài đã thi</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'ques_post')">
+      <i class="fa fa-question-circle"></i>
+      <a> Số câu hỏi đã đăng</a>
 
-<div class="container">
-    <div class="row profile">
-        <div class="col-md-3">
-            <div class="profile-sidebar">
-                <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
-                    <img src="./img/bg-img/t3.jpg" class="img-responsive" alt="">
-                </div>
-                <!-- END SIDEBAR USERPIC -->
-                <!-- SIDEBAR USER TITLE -->
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        Trần Mạnh Giang
-                    </div>
-                    <div class="profile-usertitle-job">
-                        Giáo Viên
-                    </div>
-                </div>
-                <!-- END SIDEBAR USER TITLE -->
+    </button>
+  </div>
 
-                <!-- END SIDEBAR BUTTONS -->
-                <!-- SIDEBAR MENU -->
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li>
-                            <a href="#" class="tablinks" onclick="display_info(event, 'user_info')">
-                            <i class="glyphicon glyphicon-home"></i>
-                            Thông tin cá nhân </a>
-                        </li>
-                        <li>
-                            <a href="#" class="tablinks" onclick="display_info(event, 'info_edit')">
-                            <i class="glyphicon glyphicon-user"></i>
-                            Chỉnh sửa thông tin </a>
-                        </li>
-                        <li>
-                            <a href="#" class="tablinks" onclick="display_info(event, 'do_test')">
-                            <i class="glyphicon glyphicon-ok"></i>
-                            Tổng số bài thi </a>
-                        </li>
-                        <li>
-                            <a href="#" class="tablinks" onclick="display_info(event, 'ques_post')">
-                            <i class="glyphicon glyphicon-flag"></i>
-                            Số câu hỏi đã đăng </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- END MENU -->
-            </div>
+  <div id="user_info" class="profile-content">
+    <p><b style="font-size: 30px;padding-left:275px;">Thông tin cá nhân</b></p>
+    <div class="profile-sidebar">
+      <!-- SIDEBAR USERPIC -->
+      <div class="profile-userpic">
+        <img src="./img/bg-img/t3.jpg" class="img-responsive" alt="">
+      </div>
+      <!-- END SIDEBAR USERPIC -->
+      <!-- SIDEBAR USER TITLE -->
+      <div class="profile-usertitle">
+        <div class="profile-usertitle-name">
+          Trần Mạnh Giang
         </div>
-        <div class="col-md-9">
-            <div id="user_info" class="profile-content">
-                <p><b style = "font-size: 30px;">Thông tin cá nhân</b></p>
-                <p><b>Họ tên</b>: Trần Mạnh Giang</p>
-                <p><b>Email</b>: tranmanhgiang06051999@gmail.com</p>
-                <p><b>Mô tả bản thân</b>: Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente fugit nesciunt impedit saepe adipisci excepturi numquam esse voluptatem, eius totam, rerum delectus. Dolorem quidem quod, fugiat nobis est excepturi sed?</p>
-            </div>
+        <div class="profile-usertitle-job">
+          Giáo Viên
         </div>
-        <div class = "col-md-9">
-            <div id="info_edit" class="profile-content" style = "display: none;">
-                <p><b style = "font-size: 30px;">Chỉnh sửa thông tin cá nhân</b></p>
-                <form action="#">
-                    <div class = "row form-group" style = "margin-top:20px; ">
-                        <label for="name_change" style = "width: 150px;margin:0 20px;" class="col-sm-6"> Nhập tên:</label>
-                        <input type = "text" id = "name_change" class="col-sm-6">
-                    </div>
-                    <div class = "row form-group">
-                        <label for="description" style = "width:150px; margin:20px;" class="col-sm-6"> Mô tả về bản thân</label>
-                        <textarea id = "description" class="col-sm-6" style ="height:100px;"></textarea>
-                    </div>
-                    <button type = "button" class = "btn btn-success" style = "margin:0 20px;">Thay đổi</button>
-                </form>
-            </div>
-        </div>
-        <div class = "col-md-9">
-            <div id="do_test" class="profile-content" style = "display: none;">
-                    <p><b>Tổng số bài đã thi</b>: 10</p>
-                    <p><b>Môn thi:</b></p>
-                        <ul style = "list-style: none">Toán
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                        </ul>
-                        <ul style = "list-style: none">Lý
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                        </ul>
-                        <ul style = "list-style: none">Hóa
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                        </ul>
-                        <ul style = "list-style: none">Tiếng Anh
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                        </ul>
-                        <ul style = "list-style: none">IQ
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                            <li><a href = "#">Đề 1</a></li>
-                        </ul>
-                    </ul></p>
-            </div>
-        </div>
-        <div class = "col-md-9">
-            <div id="ques_post" class="profile-content" style = "display: none;">
-                    <p><b>Số câu hỏi đã đăng:</b>7</p>
-                    <p>Chi tiết: </p>
-                    <p><div><b>Câu 1:</b>What là cái gì?</div>
-                        <div>A: a</div>
-                        <div>B: b</div>
-                        <div>C: c</div>
-                        <div>D: d</div>
-                        <div>=> Đáp án đúng: A</div>
-                    </p>
-                    <p><div><b>Câu 2:</b>What là cái gì?</div>
-                        <div>A: a</div>
-                        <div>B: b</div>
-                        <div>C: c</div>
-                        <div>D: d</div>
-                        <div>=> Đáp án đúng: A</div>
-                    </p>
-                    <p><div><b>Câu 3:</b>What là cái gì?</div>
-                        <div>A: a</div>
-                        <div>B: b</div>
-                        <div>C: c</div>
-                        <div>D: d</div>
-                        <div>=> Đáp án đúng: A</div>
-                    </p>
-                    <p><div><b>Câu 4:</b>What là cái gì?</div>
-                        <div>A: a</div>
-                        <div>B: b</div>
-                        <div>C: c</div>
-                        <div>D: d</div>
-                        <div>=> Đáp án đúng: A</div>
-                    </p>
-                    <p><div><b>Câu 5:</b>What là cái gì?</div>
-                        <div>A: a</div>
-                        <div>B: b</div>
-                        <div>C: c</div>
-                        <div>D: d</div>
-                        <div>=> Đáp án đúng: A</div>
-                    </p>
-                    <p><div><b>Câu 6:</b>What là cái gì?</div>
-                        <div>A: Đúng  </div>
-                        <div>B:Sai</div>
-                        <div>=> Đáp án đúng: A</div>
-                    </p>
-                    <p><div><b>Câu 7:</b>What là cái gì?</div>
-                        <div>A: a</div>
-                        <div>B: b</div>
-                        <div>C: c</div>
-                        <div>D: d</div>
-                        <div>E: e</div>
-                        <div>F: f</div>
-                        <div>=> Đáp án đúng: A,B,C</div>
-                    </p>
-            </div>
-        </div>
+      </div>
     </div>
+    <p><b>Họ tên</b>: Trần Mạnh Giang</p>
+    <p><b>Email</b>: tranmanhgiang06051999@gmail.com</p>
+    <p><b>Mô tả bản thân</b>: Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente fugit nesciunt impedit saepe adipisci excepturi numquam esse voluptatem, eius totam, rerum delectus. Dolorem quidem quod, fugiat nobis est excepturi sed?
+    </p>
+  </div>
+
+  <div id="info_edit" class="profile-content" style="display: none;">
+    <p><b style="font-size: 30px;">Chỉnh sửa thông tin cá nhân</b></p>
+    <form action="#">
+      <div class="row form-group" style="margin-top:20px; ">
+        <label for="name_change" style="width: 150px;margin:0 20px;"> Nhập tên:</label>
+        <input type="text" id="name_change" class="col-sm-6">
+      </div>
+      <div class="row form-group">
+        <label for="description" style="width: 150px;margin:0 20px;"> Mô tả về bản thân</label>
+        <textarea id="description" class="col-sm-6" style="height:100px;"></textarea>
+      </div>
+      <button type="button" class="btn btn-success" style="margin:0 20px;">Thay đổi</button>
+    </form>
+  </div>
+
+  <div id="do_test" class="profile-content" style="display: none;">
+    <p><b>Tổng số bài đã thi</b>: 10</p>
+    <p><b>Môn thi:</b></p>
+    <ul style="list-style: none">Toán
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+    </ul>
+    <ul style="list-style: none">Lý
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+    </ul>
+    <ul style="list-style: none">Hóa
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+    </ul>
+    <ul style="list-style: none">Tiếng Anh
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+    </ul>
+    <ul style="list-style: none">IQ
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+      <li><a href="#">Đề 1</a></li>
+    </ul>
+    </ul>
+    </p>
+  </div>
+  <div id="ques_post" class="profile-content" style="display: none;">
+    <p><b>Số câu hỏi đã đăng:</b>7</p>
+    <p>Chi tiết: </p>
+    <p>
+      <div><b>Câu 1:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>=> Đáp án đúng: A</div>
+    </p>
+    <p>
+      <div><b>Câu 2:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>=> Đáp án đúng: A</div>
+    </p>
+    <p>
+      <div><b>Câu 3:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>=> Đáp án đúng: A</div>
+    </p>
+    <p>
+      <div><b>Câu 4:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>=> Đáp án đúng: A</div>
+    </p>
+    <p>
+      <div><b>Câu 5:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>=> Đáp án đúng: A</div>
+    </p>
+    <p>
+      <div><b>Câu 6:</b>What là cái gì?</div>
+      <div>A: Đúng </div>
+      <div>B:Sai</div>
+      <div>=> Đáp án đúng: A</div>
+    </p>
+    <p>
+      <div><b>Câu 7:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>E: e</div>
+      <div>F: f</div>
+      <div>=> Đáp án đúng: A,B,C</div>
+    </p>
+    <p>
+      <div><b>Câu 7:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>E: e</div>
+      <div>F: f</div>
+      <div>=> Đáp án đúng: A,B,C</div>
+    </p>
+    <p>
+      <div><b>Câu 7:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>E: e</div>
+      <div>F: f</div>
+      <div>=> Đáp án đúng: A,B,C</div>
+    </p>
+    <p>
+      <div><b>Câu 7:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>E: e</div>
+      <div>F: f</div>
+      <div>=> Đáp án đúng: A,B,C</div>
+    </p>
+    <p>
+      <div><b>Câu 7:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>E: e</div>
+      <div>F: f</div>
+      <div>=> Đáp án đúng: A,B,C</div>
+    </p>
+    <p>
+      <div><b>Câu 7:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>E: e</div>
+      <div>F: f</div>
+      <div>=> Đáp án đúng: A,B,C</div>
+    </p>
+    <p>
+      <div><b>Câu 7:</b>What là cái gì?</div>
+      <div>A: a</div>
+      <div>B: b</div>
+      <div>C: c</div>
+      <div>D: d</div>
+      <div>E: e</div>
+      <div>F: f</div>
+      <div>=> Đáp án đúng: A,B,C</div>
+    </p>
+
+  </div>
 </div>
-
-
-
-
 <script>
-    function display_info(evt, info) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("profile-content");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace("active", "");
-      }
-      document.getElementById(info).style.display = "block";
-      evt.currentTarget.className += "active";
+  function display_info(evt, info) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("profile-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
     }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace("active", "");
+    }
+    document.getElementById(info).style.display = "block";
+    evt.currentTarget.className += "active";
+  }
 
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
 </script>
-<% include general/footer %>
+<footer class="footer-area">
+  <!-- Top Footer Area -->
+  <div class="top-footer-area" style="height: 148px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Footer Logo -->
+          <div class="footer-logo">
+            <a href="index.html">
+              <h4 style="color:bisque;">Yourtest</h4>
+            </a>
+          </div>
+          <!-- Copywrite -->
+          <p><a href="#">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;<script>
+                document.write(new Date().getFullYear());
+              </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>

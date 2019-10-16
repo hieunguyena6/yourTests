@@ -2,93 +2,89 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="img/core-img/favicon.ico">
-    <title>YourTests - Create &amp; Do Your Test|Home</title>
-    <base href="/">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <base href="/">
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <title>YourTests - Create &amp; Do Your Test|Home</title>
 
 </head>
 
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="spinner"></div>
-    </div>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner"></div>
+  </div>
 
-    <!-- ##### Header Area Start ##### -->
-    <header class="header-area">
-        <div class="clever-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <!-- Menu -->
-                <nav class="classy-navbar justify-content-between" id="cleverNav">
+  <header class="header-area">
+    <div class="clever-main-menu">
+      <div class="classy-nav-container breakpoint-off">
+        <!-- Menu -->
+        <nav class="classy-navbar justify-content-between" id="cleverNav">
 
-                    <!-- Logo -->
-                    <a class="nav-brand" href="/"><img src="img/core-img/logo.png" alt=""></a>
+          <!-- Logo -->
+          <a class="nav-brand" href="/"><img src="img/core-img/logo.png" alt=""></a>
 
-                    <!-- Navbar Toggler -->
-                    <div class="classy-navbar-toggler">
-                        <span class="navbarToggler"><span></span><span></span><span></span></span>
-                    </div>
-
-                    <!-- Menu -->
-                    <div class="classy-menu">
-
-                        <!-- Close Button -->
-                        <div class="classycloseIcon">
-                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                        </div>
-
-                        <!-- Nav Start -->
-                        <div class="classynav">
-                            <ul>
-                                <li><a href="/">Trang chủ</a></li>
-                                <li><a href="/questions/new">Thêm câu hỏi</a></li>
-                                <li><a href="page.html">Tạo bài thi</a></li>
-                                <li><a href="instructors.html">Xếp hạng thành tích</a></li>
-                            </ul>
-
-                            <!-- Search Button -->
-                            <div class="search-area">
-                                <form action="#" method="post">
-                                    <input type="search" name="search" id="search" placeholder="Tìm kiếm">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                </form>
-                            </div>
-
-                            <!-- Register / Login -->
-                            <div class="login-state d-flex align-items-center">
-                                <div class="user-name mr-30">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= fullname %></a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
-                                            <a class="dropdown-item" href="#">Profile</a>
-                                            <a class="dropdown-item" href="#">Account Info</a>
-                                            <a class="dropdown-item" href="/logout">Logout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userthumb">
-                                    <img src="img/core-img/user.png" alt="">
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- Nav End -->
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
-    <% if (message.length > 0) { %>
-        <div class="alert alert-primary alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <%= message %>
+          <!-- Navbar Toggler -->
+          <div class="classy-navbar-toggler">
+            <span class="navbarToggler"><span></span><span></span><span></span></span>
           </div>
-        <% } %>
-    <!-- ##### Header Area End ##### -->
 
-    <!-- ##### Hero Area Start ##### -->
+          <!-- Menu -->
+          <div class="classy-menu">
+
+            <!-- Close Button -->
+            <div class="classycloseIcon">
+              <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+            </div>
+
+            <!-- Nav Start -->
+            <div class="classynav">
+              <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/questions/new">Thêm câu hỏi</a></li>
+                <li><a href="page.html">Tạo bài thi</a></li>
+                <li><a href="instructors.html">Xếp hạng thành tích</a></li>
+              </ul>
+
+              <!-- Search Button -->
+              <div class="search-area">
+                <form action="#" method="post">
+                  <input type="search" name="search" id="search" placeholder="Tìm kiếm">
+                  <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+              </div>
+
+              <!-- Register / Login -->
+              <div class="login-state d-flex align-items-center">
+                <div class="user-name mr-30">
+                  <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= fullname %></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+                      <a class="dropdown-item" href="/profile">Profile</a>
+                      <a class="dropdown-item" href="#">Account Info</a>
+                      <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="userthumb">
+                  <img src="img/core-img/user.png" alt="">
+                </div>
+              </div>
+
+            </div>
+            <!-- Nav End -->
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <% if (message.length > 0) { %>
+  <div class="alert alert-primary alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= message %>
+  </div>
+  <% } %>
