@@ -1,4 +1,4 @@
-<% include header-login %>
+<% include general/header %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -37,37 +37,41 @@
     <div class="profile-sidebar">
       <!-- SIDEBAR USERPIC -->
       <div class="profile-userpic">
-        <img src="./img/bg-img/t3.jpg" class="img-responsive" alt="">
+        <img src="./img/core-img/user.png" class="img-responsive" alt="" >
       </div>
       <!-- END SIDEBAR USERPIC -->
       <!-- SIDEBAR USER TITLE -->
       <div class="profile-usertitle">
         <div class="profile-usertitle-name">
-          Trần Mạnh Giang
+          <%= user.u_firstName + " " + user.u_lastName %>
         </div>
         <div class="profile-usertitle-job">
-          Giáo Viên
+          <%= user.u_email %>
         </div>
       </div>
     </div>
-    <p><b>Họ tên</b>: Trần Mạnh Giang</p>
-    <p><b>Email</b>: tranmanhgiang06051999@gmail.com</p>
-    <p><b>Mô tả bản thân</b>: Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente fugit nesciunt impedit saepe adipisci excepturi numquam esse voluptatem, eius totam, rerum delectus. Dolorem quidem quod, fugiat nobis est excepturi sed?
+    <p><b>Họ tên</b>: <%= user.u_firstName + " " + user.u_lastName %></p>
+    <p><b>Email</b>: <%= user.u_email %></p>
+    <p><b>Mô tả bản thân</b>: <%= user.u_description %>
     </p>
   </div>
 
   <div id="info_edit" class="profile-content" style="display: none;">
     <p><b style="font-size: 30px;">Chỉnh sửa thông tin cá nhân</b></p>
-    <form action="#">
+    <form action="/profile" method="post">
       <div class="row form-group" style="margin-top:20px; ">
-        <label for="name_change" style="width: 150px;margin:0 20px;"> Nhập tên:</label>
-        <input type="text" id="name_change" class="col-sm-6">
+        <label for="name_change" style="width: 150px;margin:0 20px;">Họ</label>
+        <input type="text" id="name_change" class="col-sm-6" name="firstname">
+      </div>
+      <div class="row form-group" style="margin-top:20px; ">
+        <label for="name_change" style="width: 150px;margin:0 20px;">Tên</label>
+        <input type="text" class="col-sm-6" name="lastname">
       </div>
       <div class="row form-group">
         <label for="description" style="width: 150px;margin:0 20px;"> Mô tả về bản thân</label>
-        <textarea id="description" class="col-sm-6" style="height:100px;"></textarea>
+        <textarea id="description" class="col-sm-6" style="height:100px;" name="des"></textarea>
       </div>
-      <button type="button" class="btn btn-success" style="margin:0 20px;">Thay đổi</button>
+      <button type="submit" class="btn btn-success" style="margin:0 20px;">Thay đổi</button>
     </form>
   </div>
 

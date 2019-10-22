@@ -1,0 +1,155 @@
+#head-layer{
+    height: 120px;
+    background-color: #F5F5F5;
+    border: 1px solid #CDCDCD;
+    margin-bottom:5px;
+}
+#left-layer{
+     min-height: 400px;
+     border: 1px solid #CDCDCD;
+     border-top: 0px;
+     margin-bottom: 5px;
+     padding: 0px;
+     padding-right: 5px;
+
+}
+#right-layer{
+     min-height: 400px;
+     border-left: 40px solid #ffffff;
+     margin-bottom: 5px;
+     padding: 5px;
+     padding-left: 0px;
+}
+#head-layer label{
+ width:100px;
+}
+.container{
+  width:100%;
+}
+.question-num{
+  font-size: 20px;
+}
+.button-remove{
+  position: relative;
+  float:right;
+  right: 20px;
+  top: 9px;
+  width: 50px;
+  height: 25px;
+  background-color:#dc1332ed;
+  border-radius: 3px;
+  border-style: solid;
+  color:white;
+  border-color: #dc1332ed;
+  font-size:15px;
+  cursor: pointer;
+}
+.answer-info{
+  margin-bottom: 0px;
+}
+.STT{
+  margin-bottom: 0px;
+}
+#left-layer .question-box{
+  border:4px;
+  background-color:lightblue;
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size:15px;
+}
+#right-layer .question-box{
+  border:4px;
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  border-bottom: 4px groove lightgreen;
+}
+.text-answer-input{
+  width: 97%;
+}
+#right-layer #find-box-handwork label,#find-box-automatic label{
+  display: inline-block;
+  width: 90px;
+  text-align: left;
+}
+#find-box-handwork,#find-box-automatic{
+  margin-bottom: 5px;
+  border-bottom: 2px;
+
+  padding: 10px;
+  border-bottom:3px groove lightgray;
+}
+.button-add{
+  right: 20px;
+  top: 9px;
+  width: 50px;
+  height: 25px;
+  background-color:#35830aed;
+  border-radius: 3px;
+  border-style: solid;
+  color:white;
+  border-color: #35830aed;
+  font-size:15px;
+  cursor: pointer;
+}
+.button-diff{
+  right: 20px;
+  top: 9px;
+  width: 50px;
+  height: 25px;
+  background-color:#35830aed;
+  border-radius: 3px;
+  border-style: solid;
+  color:white;
+  border-color: #35830aed;
+  font-size:15px;
+}
+.button-type{
+  right: 20px;
+  top: 9px;
+  width: 50px;
+  height: 25px;
+  background-color:#8d27e1;
+  border-radius: 3px;
+  border-style: solid;
+  color:white;
+  border-color: #8d27e1;
+  font-size:15px;
+}
+#create-test-button{
+  width:100px;
+  background-color: lightgreen;
+  border-radius: 2px;
+  border-color: lightgreen;
+  border-style:solid;
+}
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+.tab button.active {
+  background-color: #ccc;
+}
+.tabcontent{
+  display: none;
+}
+#handwork{
+  z-index:-1;
+}
+#add-cretia{
+  margin-left: 10px;
+}
+#automatic button{
+  width: 100px;
+}

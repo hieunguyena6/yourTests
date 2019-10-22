@@ -85,8 +85,6 @@ router.post('/new', function(req, res) {
           })
         } else if (post.type == 3) {
           var answers = [];
-          console.log(post.mul_true);
-          console.log(post.ans);
           for (var i = 0; i < post.ans.length; i++) {
             if(post.ans[i] == '') break;
             answers.push([result.insertId, post.ans[i], post.mul_true.indexOf(i.toString()) > -1]);

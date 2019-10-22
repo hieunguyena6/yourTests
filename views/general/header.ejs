@@ -6,10 +6,10 @@
   <meta name="description" content="">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <base href="/">
   <link rel="icon" href="img/core-img/favicon.ico">
-  <link rel="stylesheet" href="css/style.css">
   <title>YourTests - Create &amp; Do Your Test|Home</title>
+  <base href="/">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -19,6 +19,7 @@
     <div class="spinner"></div>
   </div>
 
+  <!-- ##### Header Area Start ##### -->
   <header class="header-area">
     <div class="clever-main-menu">
       <div class="classy-nav-container breakpoint-off">
@@ -26,13 +27,10 @@
         <nav class="classy-navbar justify-content-between" id="cleverNav">
 
           <!-- Logo -->
-          <a class="nav-brand" href="/"><img src="img/core-img/logo.png" alt=""></a>
-
-          <!-- Navbar Toggler -->
+          <a class="nav-brand" href="/"><img src="img/core-img/logo.png" alt="" style="width: 190px;height: 80px;"></a>
           <div class="classy-navbar-toggler">
             <span class="navbarToggler"><span></span><span></span><span></span></span>
           </div>
-
           <!-- Menu -->
           <div class="classy-menu">
 
@@ -46,27 +44,27 @@
               <ul>
                 <li><a href="/">Trang chủ</a></li>
                 <li><a href="/questions/new">Thêm câu hỏi</a></li>
-                <li><a href="page.html">Tạo bài thi</a></li>
+                <li><a href="/tests/new">Tạo bài thi</a></li>
                 <li><a href="instructors.html">Xếp hạng thành tích</a></li>
               </ul>
 
               <!-- Search Button -->
               <div class="search-area">
-                <form action="#" method="post">
-                  <input type="search" name="search" id="search" placeholder="Tìm kiếm">
+                <form action="/search" method="get">
+                  <input type="search" name="key" id="search" placeholder="Tìm bài thi, người dùng" required>
                   <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
               </div>
 
               <!-- Register / Login -->
+              <% if(typeof fullname !== 'undefined') { %>
               <div class="login-state d-flex align-items-center">
                 <div class="user-name mr-30">
                   <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= fullname %></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
-                      <a class="dropdown-item" href="/profile">Profile</a>
-                      <a class="dropdown-item" href="#">Account Info</a>
-                      <a class="dropdown-item" href="/logout">Logout</a>
+                      <a class="dropdown-item" href="/profile">Thông tin cá nhân</a>
+                      <a class="dropdown-item" href="/logout">Đăng xuất</a>
                     </div>
                   </div>
                 </div>
@@ -74,7 +72,12 @@
                   <img src="img/core-img/user.png" alt="">
                 </div>
               </div>
-
+              <% } else { %>
+              <div class="register-login-area">
+                <a href="/register" class="btn">Đăng ký</a>
+                <a href="/login" class="btn">Đăng nhập</a>
+              </div>
+              <% } %>
             </div>
             <!-- Nav End -->
           </div>
@@ -88,3 +91,4 @@
     <%= message %>
   </div>
   <% } %>
+  <!-- ##### Header Area End ##### -->

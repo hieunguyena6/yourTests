@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 
 var userRouter = require('./routes/user');
 var questionRouter = require('./routes/question');
+var testRouter = require('./routes/test');
 
 var app = express();
 app.set('views', [path.join(__dirname, 'views'),
@@ -49,6 +50,7 @@ app.use('/login', userRouter);
 app.use('/register', userRouter);
 app.use('/profile', userRouter);
 app.use('/questions', questionRouter);
+app.use('/tests', testRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
