@@ -49,4 +49,3 @@ function CalculateQuestionOrder(){
     number[i].textContent='Câu '+(i+1);
  }
 };
-alert(varArray);
