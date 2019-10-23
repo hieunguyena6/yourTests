@@ -28,6 +28,8 @@ router.get('/new', function(req, res) {
       }
       var questions = [];
       var answers = [];
+      var lvs = [];
+      lvs.push(result[0].q_linhvuc);
       var answer = {
         id: result[0].q_id,
         content: result[0].a_data
@@ -50,16 +52,21 @@ router.get('/new', function(req, res) {
             id: result[i].q_id,
             diff: result[i].q_level,
             type: result[i].q_type,
+            lv: result[i].q_linhvuc,
             content: result[i].q_content
           };
           questions.push(question);
+        }
+        if (lvs.indexOf(result[i].q_linhvuc) == -1 ) {
+          lvs.push(result[i].q_linhvuc);
         }
       }
       res.render('user/add-test', {
         message: '',
         fullname: req.session.fullname,
         questions: questions,
-        answers: answers
+        answers: answers,
+        lvs: lvs
       });
     })
   }

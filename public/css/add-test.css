@@ -104,6 +104,18 @@
   border-color: #35830aed;
   font-size:15px;
 }
+.button-sub{
+  right: 20px;
+  top: 9px;
+  width: 50px;
+  height: 25px;
+  background-color: blue;
+  border-radius: 3px;
+  border-style: solid;
+  color:white;
+  border-color: blue;
+  font-size:15px;
+}
 .button-type{
   right: 20px;
   top: 9px;

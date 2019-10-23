@@ -10,6 +10,7 @@ function countQuestionSum() {
 // Remove question action
 $(document).on("click", ".button-remove", function() {
   $(this).parent().parent().remove();
+  CalculateQuestionOrder();
   countQuestionSum();
 });
 // Add question action
@@ -20,6 +21,7 @@ $(document).ready(function() {
     $('.button-add', wrap).parent().remove();
     var buttonRemove = ('<div><label class="question-num">Cau1:</label><button class="button-remove">Xóa</button></div>');
     $(wrap).prepend($(buttonRemove));
+    CalculateQuestionOrder();
     countQuestionSum();
   });
 });
@@ -39,3 +41,12 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 // Remove question selector
+
+//Calculate numberic order of question
+function CalculateQuestionOrder(){
+  var number= document.getElementsByClassName("question-num");
+  for (i = 0; i < number.length; i++) {
+    number[i].textContent='Câu '+(i+1);
+ }
+};
+alert(varArray);
