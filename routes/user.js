@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var User = require('../models/user');
 /* GET home page. */
 router.get('/', function(req, res) {
   if (!req.session.user) {
@@ -22,15 +22,45 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-router.get('/profile', function(req, res) {
-  var query = "SELECT u_email,u_firstName,u_lastName,u_description from users WHERE u_id = " + req.session.user_id;
-  db.query(query, function(err, user){
+// router.get('/profile', function(req, res) {
+//   var query = "SELECT u_email,u_firstName,u_lastName,u_description from users WHERE u_id = " + req.session.user_id;
+//   db.query(query,async function(err, user){
+//     if (err) {
+//       console.log(query);
+//       res.redirect('/');
+//     }
+//     else {
+//       var tests = await db.query("select * from tests where u_id = " + req.session.user_id);
+//       console.log(tests);
+//       res.render('user/profile', {message : req.flash('message'), fullname : req.session.fullname, user : user[0] });
+//     }
+//   })
+// });
+
+router.get('/profile',async function(req, res) {
+  let id = req.session.user_id;
+  if (id) {
+  User.getDetailUser(id, function(err, user) {
+    User.getListQuestion(id, function(error, questions) {
+      User.getListTest(id, function(e, tests) {
+        res.render('user/profile', {message : req.flash('message'), fullname : req.session.fullname, user : user[0], tests: tests, questions: questions});
+      })
+    })
+  })
+}
+});
+
+router.get('/profile/:id',async function(req, res) {
+  var id = req.params.id;
+  var query = "SELECT u_email,u_firstName,u_lastName,u_description from users WHERE u_id = " + id;
+  db.query(query,async function(err, user){
     if (err) {
       console.log(query);
       res.redirect('/');
     }
     else {
-      console.log(user[0].u_email);
+      var tests = await db.query("select * from tests where u_id = " + id);
+      console.log(tests);
       res.render('user/profile', {message : req.flash('message'), fullname : req.session.fullname, user : user[0] });
     }
   })

@@ -32,7 +32,7 @@
 .button-remove{
   position: relative;
   float:right;
-  right: 20px;
+  right: 0px;
   top: 9px;
   width: 50px;
   height: 25px;
@@ -161,7 +161,4 @@
 }
 #add-cretia{
   margin-left: 10px;
-}
-#automatic button{
-  width: 100px;
 }

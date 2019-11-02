@@ -20,6 +20,7 @@ $(document).ready(function() {
     $('.button-add', wrap).parent().remove();
     var buttonRemove = ('<div><label class="question-num">Cau1:</label><button class="button-remove">Xóa</button></div>');
     $(wrap).prepend($(buttonRemove));
+
     countQuestionSum();
   });
 });

@@ -9,22 +9,33 @@ function countQuestionSum() {
 
 // Remove question action
 $(document).on("click", ".button-remove", function() {
+  var ques = $(this).parent().parent().clone();
+  var id_input = $('input', ques).first();
+  var div_cau = $('div', ques).first();
+  $(id_input).remove();
+  $(div_cau).remove();
+  var button_add = ('<button type="button" class="button-add">Thêm</button>');
+  $('div', ques).first().prepend($(button_add));
+  ques.appendTo("#right-layer #handwork");
   $(this).parent().parent().remove();
   CalculateQuestionOrder();
   countQuestionSum();
 });
 // Add question action
-$(document).ready(function() {
-  $(".button-add").click(function() {
-    $(this).parent().parent().clone().appendTo("#left-layer");
+$(document).on("click", ".button-add", function() {
+    var ques = $(this).parent().parent().clone();
+    var id = $('p', ques).first().text();
+    var input = '<input value = ' + id + ' name = "ques[]" style= "display : none" >';
+    $(ques).prepend($(input));
+    ques.appendTo("#left-layer");
     var wrap = $('#left-layer').find('.question-box:last');
-    $('.button-add', wrap).parent().remove();
-    var buttonRemove = ('<div><label class="question-num">Cau1:</label><button class="button-remove">Xóa</button></div>');
+    $('.button-add', wrap).remove();
+    var buttonRemove = ('<div><label class="question-num"></label><button class="button-remove" type="button">Xóa</button></div>');
     $(wrap).prepend($(buttonRemove));
+    $(this).parent().parent().remove();
     CalculateQuestionOrder();
     countQuestionSum();
   });
-});
 
 // Open Tabs
 function openTab(evt, tabName) {

@@ -1,102 +1,107 @@
 <% include general/header %>
+<script src="js/jquery/jquery-2.2.4.min.js"></script>
 <script src="js/add-test.js"></script>
 <link rel="stylesheet" href="css/add-test.css">
 <br>
 <div class="container">
+  <form action="/tests/new" method= "post">
   <div class="row">
-    <div class="col-md-6" id="left-layer">
-    </div>
-
-    <!-- Right Layer -->
-    <div class="col-md-6" id="right-layer">
-
-      <div class="tab">
-        <div class="row">
-          <button class="tablinks col-md-6" onclick="openTab(event, 'handwork')">Thêm thủ công</button>
-          <button class="tablinks col-md-6" onclick="openTab(event, 'automatic')">Thêm tự động</button>
-        </div>
+      <div class="col-md-6" id="left-layer">
       </div>
-
-      <div class="tabcontent" id="handwork">
-        <div id="find-box-handwork">
-          <form class="form" action="/">
-            <div>
-              <label>Thể loại: </label><select>
-                <option>Choose...</option>
-                <% for (var i = 0; i < lvs.length; i++) { %>
-                <option value = <%= lvs[i] %> ><%= lvs[i] %></option>
-                <% } %>
-              </select>
-            </div>
-            <div>
-              <label>Độ khó: </label><select>
-                <option>Choose...</option>
-                <option>Dễ</option>
-                <option>Trung bình</option>
-                <option>Khó</option>
-              </select>
-            </div>
-            <div>
-              <button type="button">Tìm kiếm</button>
-            </div>
-          </form>
+      <div class="col-md-6" id="right-layer">
+        <div class="tab">
+          <div class="row">
+            <button type="button" class="tablinks col-md-6" onclick="openTab(event, 'handwork')">Thêm thủ công</button>
+            <button type="button" class="tablinks col-md-6" onclick="openTab(event, 'automatic')">Thêm tự động</button>
+          </div>
         </div>
-        <!-- Question selector box -->
-        <div>
-          <% for (var i = 0; i < questions.length; i++) { var n = 0; %>
-          <div class="question-box">
+
+        <div class="tabcontent" id="handwork">
+          <div id="find-box-handwork">
             <div>
-              <button class="button-add">Thêm</button>
-              <button class="button-type" style="float: right"><%= questions[i].diff %></button>
-              <button class="button-sub" style="float: right; margin-right: 5px;"><%= questions[i].lv %></button>
-            </div>
-            <div class="question"><b>Câu <%= i+1 %>: </b><%= questions[i].content %>
-            </div>
-            <div class="answer-box">
-              <div class="row">
-                <% if (questions[i].type == 1) { %>
-                <div class="col-md-6">
-                  <label name="answer-info"> <input type="radio" name="answer-chose"> <label class="STT">A.</label>Đúng</label>
-                </div>
-                <div class="col-md-6">
-                  <label name="answer-info"> <input type="radio" name="answer-chose"> <label class="STT">B.</label>Sai</label>
-                </div>
-                <% } else if (questions[i].type == 2 ) { n = 0; %>
-                <% for (var j = 0; j < answers.length; j++) { if (answers[j].id == questions[i].id) {%>
-                <div class="col-md-6">
-                  <label name="answer-info"> <input type="radio" name="answer-chose"> <label class="STT"><%= String.fromCharCode((n++) + 65) %>. </label><%= answers[j].content %></label>
-                </div>
-                <%} }%>
-                <% } else if (questions[i].type == 3) { n = 0; %>
-                <% for (var j = 0; j < answers.length; j++) { if (answers[j].id == questions[i].id) {%>
-                <div class="col-md-6">
-                  <label name="answer-info"> <input type="checkbox" name="answer-chose"> <label class="STT"><%= String.fromCharCode((n++) + 65) %>.</label><%= answers[j].content %></label>
-                </div>
-                <%} } %>
+              <label>Lĩnh vực: </label><select id="theloai_select" onchange="find()">
+                <option value="">Choose...</option>
+                <% for (var i = 0; i < lvs.length; i++) { %>
+                <option value=<%= lvs[i] %>><%= lvs[i] %></option>
                 <% } %>
-              </div>
+              </select>
+            </div>
+            <div>
+              <label>Độ khó: </label><select id="dokho_select" onchange="find()">
+                <option value="">Choose...</option>
+                <option value="de">Dễ</option>
+                <option value="tb">Trung bình</option>
+                <option value="kho">Khó</option>
+              </select>
             </div>
           </div>
-          <% } %>
+          <!-- Question selector box -->
+          <div>
+            <% for (var i = 0; i < questions.length; i++) { var n = 0; %>
+            <div class="question-box">
+
+              <p id="id" style="display: none"><%= questions[i].id %></p>
+              <div>
+                <button type="button" class="button-add">Thêm</button>
+                <button type="button" class="button-type" style="float: right"><%= questions[i].diff %></button>
+                <button type="button" class="button-sub" style="float: right; margin-right: 5px;"><%= questions[i].lv %></button>
+              </div>
+              <div class="question"><b>Câu <%= i+1 %>: </b><%= questions[i].content %>
+              </div>
+              <div class="answer-box">
+                <div class="row">
+                  <% if (questions[i].type == 1) { %>
+                  <div class="col-md-6">
+                    <label name="answer-info"> <input type="radio"> <label class="STT">A.</label>Đúng</label>
+                  </div>
+                  <div class="col-md-6">
+                    <label name="answer-info"> <input type="radio"> <label class="STT">B.</label>Sai</label>
+                  </div>
+                  <% } else if (questions[i].type == 2 ) { n = 0; %>
+                  <% for (var j = 0; j < answers.length; j++) { if (answers[j].id == questions[i].id) {%>
+                  <div class="col-md-6">
+                    <label name="answer-info"> <input type="radio"> <label class="STT"><%= String.fromCharCode((n++) + 65) %>. </label><%= answers[j].content %></label>
+                  </div>
+                  <%} }%>
+                  <% } else if (questions[i].type == 3) { n = 0; %>
+                  <% for (var j = 0; j < answers.length; j++) { if (answers[j].id == questions[i].id) {%>
+                  <div class="col-md-6">
+                    <label name="answer-info"> <input type="checkbox"> <label class="STT"><%= String.fromCharCode((n++) + 65) %>.</label><%= answers[j].content %></label>
+                  </div>
+                  <%} } %>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="tabcontent" id="automatic">
+          <div id="find-box-automatic">
+            <div>
+              <label>Lĩnh vực: </label><select id="theloai_auto" onchange="find()">
+                <option value="">Choose...</option>
+                <% for (var i = 0; i < lvs.length; i++) { %>
+                <option value=<%= lvs[i] %>><%= lvs[i] %></option>
+                <% } %>
+              </select>
+            </div>
+            <div>
+              <label>Độ khó: </label><select id="dokho_auto" onchange="find()">
+                <option value="">Choose...</option>
+                <option value="de">Dễ</option>
+                <option value="tb">Trung bình</option>
+                <option value="kho">Khó</option>
+              </select>
+            </div>
+            <div>
+              <label>Số câu hỏi: </label>
+              <input type="number" name="time_auto">
+            </div>
+            <button class="btn btn-success" >Thêm câu hỏi</button>
+          </div>
         </div>
       </div>
-      <div class="tabcontent" id="automatic">
-        <div id="find-box-automatic">
-          <form class="form" action="/action_page.php">
-            <div>
-              <label>Thể loại: </label><input type="text" id="question-type">
-            </div>
-            <div>
-              <label>Độ khó: </label><input type="text" id="question-level">
-            </div>
-            <div>
-              <label>Số câu hỏi: </label><input type="number" id="question-selected-number">
-            </div>
-            <button class="selector-remove">Thêm câu hỏi</button>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
   <div class="test-create-end">
     <div class="row">
@@ -108,23 +113,54 @@
         </div>
       </div>
     </div>
-    <form>
-      <div class="row form-group">
-        <label style="width: 150px"><b>Tên bài test: </b></label>
-        <input type="text" class="col-sm-5 form-control" required>
-      </div>
-      <div class="row form-group">
-        <label style="width: 150px"><b>Mật khẩu (nếu có): </b></label>
-        <input type="text" class="col-sm-5 form-control" required>
-      </div>
-      <div class="row form-group">
-        <label style="width: 150px"><b>Thời gian (phút): </b></label>
-        <input type="number" class="col-sm-2 form-control" name="time">
-      </div>
-      <button class="btn btn-success">Tạo bài thi</button>
-      <a href="/"><button class="btn btn-danger" type="button">Hủy bỏ</button></a>
+    <div class="row form-group">
+      <label style="width: 150px"><b>Tên bài test: </b></label>
+      <input type="text" class="col-sm-5 form-control" name="name" required>
+    </div>
+    <div class="row form-group">
+      <label style="width: 150px"><b>Mật khẩu (nếu có): </b></label>
+      <input type="password" class="col-sm-5 form-control" name="password">
+    </div>
+    <div class="row form-group">
+      <label style="width: 150px"><b>Thời gian (phút): </b></label>
+      <input type="number" class="col-sm-2 form-control" name="time" required>
+    </div>
+    <button type="submit" class="btn btn-success">Tạo bài thi</button>
+    <a href="/"><button class="btn btn-danger" type="button">Hủy bỏ</button></a>
     </form>
-    <br>
   </div>
 </div>
+<br>
+<script type="text/javascript">
+  function find() {
+    $('.question-box').show();
+    var theloai = $(theloai_select).children("option:selected").val();
+    var dokho = $(dokho_select).children("option:selected").val();
+    if (theloai == dokho) {
+      $('.question-box').show();
+    } else {
+      if (theloai == "") {
+        var button_type = $(".button-type");
+        button_type.each(function(index, butt) {
+          if ($(butt).text() != dokho) $(butt).parent().parent().hide();
+        });
+      } else if (dokho == "") {
+        var button_diff = $(".button-sub");
+        button_diff.each(function(index, butt) {
+          if ($(butt).text() != theloai) $(butt).parent().parent().hide();
+        });
+      } else {
+        var button_type = $(".button-type");
+        var button_diff = $(".button-sub");
+        button_diff.each(function(index, butt) {
+          if ($(butt).text() != theloai || $(button_type[index]).text() != dokho) $(butt).parent().parent().hide();
+        });
+      }
+    }
+  }
+
+  function auto_add() {
+
+  }
+</script>
 <% include general/footer %>
