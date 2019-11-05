@@ -90,7 +90,7 @@
           <td><%= tests[i].t_name %></td>
           <td><%= tests[i].t_time %></td>
           <td><%= tests[i].t_password %></td>
-          <td><button class="btn btn-success" style="margin-right: 10px"><a href="#" style="color: white">Xem bài thi</a></button><button class="btn btn-danger" onclick=<%= "delete_test(" + tests[i].t_id + ")"%>>Xóa</button></td>
+          <td><button class="btn btn-success" style="margin-right: 10px"><a href=<%= 'http://localhost:4000/tests/dotest/' + tests[i].t_id %>  style="color: white" target= "_blank">Xem bài thi</a></button><button class="btn btn-danger" onclick=<%= "delete_test(" + tests[i].t_id + ")"%>>Xóa</button></td>
         </tr>
         <% } %>
       </tbody>

@@ -15,10 +15,10 @@ router.get('/', function(req, res) {
 });
 
 router.get('/dotest/:id', function(req, res) {
-  // if (!req.session.user) {
-  //   req.flash('message', 'Vui lòng đăng nhập để làm bài test !')
-  //   res.redirect('/login');
-  // } else {
+  if (!req.session.user) {
+    req.flash('message', 'Vui lòng đăng nhập để làm bài test !')
+    res.redirect('/login');
+  } else {
     var id = req.params.id;
     db.query('select * from tests where t_id = ' + id, function(e, result){
       if (e) console.log(e);
@@ -26,7 +26,7 @@ router.get('/dotest/:id', function(req, res) {
         res.render('user/dotest', {message : '', fullname: req.session.fullname,test: result[0] })
       }
     })
-  //}
+  }
 });
 
 router.get('/new', function(req, res) {
@@ -117,7 +117,7 @@ router.post('/new', function(req, res) {
           res.redirect('/tests/new');
         }
         else {
-          req.flash('message', 'Thêm bài test thành công ! Link bài test: localhost:3000/test/' + result.insertId);
+          req.flash('message', 'Thêm bài test thành công ! Link bài test: localhost:3000/tests/dotest/' + result.insertId);
           res.redirect('/tests/new');
         }
       })
