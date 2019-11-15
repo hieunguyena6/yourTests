@@ -1,8 +1,68 @@
 <% include header%>
-<div class="container">
-  <div><h4>Kết quả tìm kiếm cho "hello"</h4></div>
-  <div class="row">
-    <div class="col-md-3">
+<div class="container" style="margin-bottom: 20px;">
+  <h3>Kết quả tìm kiếm cho "<%= key %>"</h3>
+  <hr />
+  <div class="container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#menu1">Người dùng</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu2">Bài thi</a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="menu1" class="container tab-pane active"><br>
+        <div class="container">
+          <% for (i in users) { %>
+          <a class='e_t' href=<%= 'http://localhost:4000/profile/' + users[i].u_id %>>
+            <div class="dis_cur row container">
+              <div class="col-sm-1"><img src="img/core-img/user.png" style="width: 100px;height: 60px;"></div>
+              <div>
+                <%= users[i].u_firstname + ' ' + users[i].u_lastName %><br />
+                <%= users[i].u_email %>
+              </div>
+            </div>
+          </a>
+          <% }%>
+          
+        </div>
+        <style>
+          #seemore {
+            color: steelblue;
+          }
+
+          .row {
+            margin-top: 10px;
+          }
+
+          .e_t {
+            color: black;
+          }
+        </style>
+      </div>
+      <div id="menu2" class="container tab-pane fade"><br>
+        <div class="row">
+          <% tests.forEach(function(test) { %>
+          <div class="col-md-4">
+            <div class="row"><a href=<%= 'http://localhost:4000/tests/dotest/' + test.t_id %>>
+                <h4 style="text-decoration: underline;"><%= test.t_name %></h4>
+              </a></div>
+            <div class="row"><i>Ngừời đăng:&nbsp;</i><a href=<%= 'http://localhost:4000/profile/' + test.u_id %>
+                style="color: blue"><%=  test.u_email %></a></i></div>
+            <div class="row"><i>Thời gian:&nbsp;</i><%= test.t_time %></i> phút</div>
+            <% if (test.t_password) { %>
+            <div class="row"><i>Có mật khẩu </i></div>
+            <% } else { %>
+            <div class="row"><i>Không mật khẩu </i></div>
+            <% }%>
+          </div>
+          <% }) %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -2,31 +2,49 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  if (!req.session.user) {
-    res.render('guest/index.ejs', {
-      message: ''
-    })
-  } else {
-    res.render('user/index-login', {
-      message: '',
-      fullname: req.session.fullname
-    })
-  };
+  db.query('select * from tests t inner join users u on u.u_id = t.u_id', function(e, tests){
+    if (e) console.log(e);
+    else {
+      res.render('general/tests', {fullname : req.session.fullname, message: '', tests: tests})
+    }
+  })
 });
 
 router.get('/dotest/:id', function(req, res) {
-  if (!req.session.user) {
-    req.flash('message', 'Vui lòng đăng nhập để làm bài test !')
-    res.redirect('/login');
-  } else {
+  // if (!req.session.user) {
+  //   req.flash('message', 'Vui lòng đăng nhập để làm bài test !')
+  //   res.redirect('/login');
+  // } else {
     var id = req.params.id;
-    db.query('select * from tests where t_id = ' + id, function(e, result){
+    db.query('select * from tests where t_id = ' + id, function(e, test){
       if (e) console.log(e);
       else {
-        res.render('user/dotest', {message : '', fullname: req.session.fullname,test: result[0] })
+        var questions_content = [];
+        db.query('select q_type,q_content,q.q_id,a.a_data,q_type,a.a_id from tests_questions tq inner join questions q on q.q_id = tq.q_id' +
+        ' inner join answers a on a.q_id = q.q_id where t_id = ' + id, function(er,questions) {
+          if (er) console.log(er);
+          else {
+            var question0 = {q_id: questions[0].q_id, q_type: questions[0].q_type, q_content: questions[0].q_content};
+            var questions0 = [];
+            questions0.push(question0);
+            var answers = [];
+            for (i in questions){
+              answers.push({q_id: questions[i]. q_id, data: questions[i].a_data, id: questions[i].a_id});
+              var ids = [];
+              for (j in questions0) {
+                ids.push(questions0[j].q_id);
+              }
+              if (!(ids.includes(questions[i].q_id))) {
+                questions0.push({q_id: questions[i].q_id, q_type: questions[i].q_type, q_content: questions[i].q_content});
+              }
+            }
+            res.render('user/dotest', {message : '', fullname: req.session.fullname,test: test[0],questions: questions0, answers: answers});
+          }
+        })
+
       }
     })
-  }
+  //}
 });
 
 router.get('/new', function(req, res) {
@@ -117,7 +135,7 @@ router.post('/new', function(req, res) {
           res.redirect('/tests/new');
         }
         else {
-          req.flash('message', 'Thêm bài test thành công ! Link bài test: localhost:3000/tests/dotest/' + result.insertId);
+          req.flash('message', 'Thêm bài test thành công ! Link bài test: localhost:4000/tests/dotest/' + result.insertId);
           res.redirect('/tests/new');
         }
       })
@@ -125,11 +143,43 @@ router.post('/new', function(req, res) {
   })
 })
 
+router.post('/success', function(req, res) {
+  var post = req.body;
+  var total_ques = post.total_ques;
+  var name = post.name_test;
+  delete post.total_ques;
+  delete post.name_test;
+  var q_id = Object.keys(post);
+  var mark = 0;
+  db.query('select * from answers a inner join questions q on a.q_id = q.q_id where a.q_id in (?)' , [q_id],function(err, answers){
+    for (i in post){
+      var question = answers.find(x => x.q_id == i);
+      if (question.q_type == 1) {
+        if (question.a_data == post[i]) mark++;
+      }
+      if (question.q_type == 2) {
+        if (answers.find(x => x.a_id == post[i]).a_true == 1) mark++;
+      }
+      if (question.q_type == 3) {
+        var a1 = post[i];
+        var a2 = [];
+        for (j in answers) {
+          if (answers[j].q_id == i && answers[j].a_true) a2.push(answers[j].a_id);
+        }
+        if (a1.sort().toString()==a2.sort().toString()) mark++;
+      }
+    }
+    var num_correct = mark;
+    var num = mark/total_ques;
+    mark = Math.round( num * 100 + Number.EPSILON ) / 10;
+    res.render('user/success', {message: '', fullname: req.session.fullname, name: name, 
+                length: q_id.length,mark: mark, num: num_correct});
+  })
+})
+
 router.delete('/delete/:id', function(req,res) {
   db.query("select u_id from tests where t_id = " + req.params.id, function(err,result){
     if (err) console.log(err);
-    console.log(result[0].u_id);
-    console.log(req.session.user_id);
     if(result[0].u_id === req.session.user_id || req.session.user_type == 3) {
       db.query("delete from tests where t_id = " + req.params.id, function(error, resu) {
         if (error) console.log(error);

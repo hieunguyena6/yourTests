@@ -1,22 +1,14 @@
 <% include header %>
 <link rel="stylesheet" href="css/do_test.css">
 <script src="js/jquery/jquery-2.2.4.min.js"></script>
-<div class="containerr" style="display: none">
+<div class="containerr">
   <div class="left1">
     <div class="title1"> Chọn nhanh câu hỏi
     </div>
     <div class="contain1">
-      <a href='#q1' class="a_ques"><button class="cell1" id="b_q1">1</button></a>
-      <a href='#q2' class="a_ques"><button class="cell1" id="b_q2">2</button></a>
-      <a href='#q3' class="a_ques"><button class="cell1" id="b_q3">3</button></a>
-      <a href='#q4' class="a_ques"><button class="cell1" id="b_q4">4</button></a>
-      <a href='#q5' class="a_ques"><button class="cell1" id="b_q5">5</button></a>
-      <a href='#q6' class="a_ques"><button class="cell1" id="b_q6">6</button></a>
-      <a href='#q7' class="a_ques"><button class="cell1" id="b_q7">7</button></a>
-      <button class="cell1"><a href='#q8' id="b_q8">8</a></button>
-      <button class="cell1"><a href='#q9'>9</a></button>
-      <button class="cell1"><a href='#q10'>10</a></button>
-
+      <% for (let i = 0 ; i < questions.length; i++) {%>
+      <a href=<%= '#q' + (i+1) %> class="a_ques"><button class="cell1" id=<%= 'b_q' + (i+1) %>><%= i+1 %></button></a>
+      <% } %>
     </div>
     <div class="title1" style="text-align: center;" id="timer">
     </div>
@@ -25,147 +17,58 @@
   <div class="right1">
     <h4 style="text-align: center"><%= test.t_name %></h4>
     <div class="contain1">
-      <div class="top1" id="q1">
-        <div id="q1"><b>Câu 1: </b>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaa ?</div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" onclick="check_input(this)">
-          <label class="form-check-label" for="defaultCheck1">A.Gì</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" onclick="check_input(this)">
-          <label class="form-check-label" for="defaultCheck2">B. cái gì</label>
-        </div>
+      <form action="/tests/success" method="post">
+      <% for (let i = 0;i < questions.length; i++ ) { %>
+      <% if (questions[i].q_type == 1) { %>
+      <div class="top1" id=<%= 'q' + (i+1) %>>
+        <div id="q1"><b>Câu <%= (i+1) %>: </b><%= questions[i].q_content %></div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="1" id=<%= "cau" + i + 1%> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+        <label class="form-check-label" for=<%= "cau" + i + 1 %>>A.Đúng</label>
       </div>
-      <div class="top1" id="q2">
-        <div><b>Câu 2:</b>How là cái gì</div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" onclick="check_input(this)">
-          <label class="form-check-label" for="exampleRadios1">A. Cái gì</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" onclick="check_input(this)">
-          <label class="form-check-label" for="exampleRadios2">B. OK
-          </label>
-        </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="0" id=<%= "cau" + i + 0%> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+        <label class="form-check-label" for=<%= "cau" + i + 0 %>>B.Sai</label>
       </div>
-      <div class="top1" id="q3">
-        <div><b>Câu 3: </b>Hello</div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios1" onclick="check_input(this)">
-          <label class="form-check-label" for="exampleRadios1">A. Đúng</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios1" onclick="check_input(this)">
-          <label class="form-check-label" for="exampleRadios2">B. Sai
-          </label>
-        </div>
-      </div>
-      <div class="top1" id="q4">
-        <div><b>Câu 4</b></div>
-        <div>
-          Trả lời:<input type="textarea" name="note">
-        </div>
-      </div>
-      <div class="top1" id="q5">
-        <div><b>Câu 5</b></div>
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-      </div>
-      <div class="top1" id="q6">
-        <div><b>Câu 6</b></div>
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-      </div>
-      <div class="top1" id="q7">
-        <div><b>Câu 7</b></div>
-        <div>
-          <input type="radio" name="radio"> Đúng
-        </div>
-
-        <div>
-          <input type="radio" name="radio"> Sai
-        </div>
-      </div>
-      <div class="top1" id="q8">
-        <div><b>Câu 8</b></div>
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio"> Múc độ ổn định
-        </div>
-      </div>
-      <div class="top1" id="q9">
-        <div><b>Câu 9</b></div>
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-        <div>
-          <input type="radio" name="radio"> Múc độ ổn định
-        </div>
-      </div>
-      <div class="top1" id="q10">
-        <div><b>Câu 10</b></div>
-        <div>
-          <input type="radio" name="radio"> Đúng
-        </div>
-
-        <div>
-          <input type="radio" name="radio"> Sai
-        </div>
-      </div>
-
     </div>
-
+    <% } else if (questions[i].q_type == 2) { n = 0;%>
+    <div class="top1" id=<%= 'q' + (i+1) %>>
+      <div id="q1"><b>Câu <%= (i+1) %>: </b><%= questions[i].q_content %></div>
+      <% for (j in answers) { if (answers[j].q_id == questions[i].q_id) {%>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value=<%= answers[j].id %> id=<%= "cau" + i +j %> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+        <label class="form-check-label" for=<%= "cau" + i +j %>><%= String.fromCharCode((n++) + 65) %>.<%= answers[j].data %></label>
+      </div>
+      <% }} %>
+    </div>
+    <% } else { n = 0; %>
+      <div class="top1" id=<%= 'q' + (i+1) %>>
+        <div id="q1"><b>Câu <%= (i+1) %>: </b><%= questions[i].q_content %></div>
+        <% for (j in answers) { if (answers[j].q_id == questions[i].q_id) {%>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value= <%= answers[j].id %> id=<%= "cau" + i + j%> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+          <label class="form-check-label" for=<%= "cau" + i + j %>><%= String.fromCharCode((n++) + 65) %>.<%= answers[j].data %></label>
+        </div>
+        <% }} %>
+      </div>
+    <% }} %>
 
   </div>
 </div>
-<div style="margin-top: 20px;margin-bottom: 15px; text-align: center">
-  <button class="btn btn-success " onclick="functionSubmit()">Kết thúc bài thi</button>
 </div>
-
+<input style="display: none" name = 'total_ques' type="text" value=<%= questions.length %> />
+<input style="display: none" name = 'name_test' type="text" value=<%= test.t_name %> />
+<div style="margin-top: 20px;margin-bottom: 15px; text-align: center">
+  <button class="btn btn-success " onclick="functionSubmit()" type="button">Kết thúc bài thi</button>
+  <button style="display: none" id="bt_submmit_fake"></button>
+</div>
+</form>
 <script>
   // $(document).ready(function() {
   //   var pass = '<%= test.t_password %>';
   //   var x = prompt('Nhập mật khẩu (Nếu không có để trống)');
   //   if (x == pass) {
-       document.getElementsByClassName('containerr')[0].style.display = "inline-block";
+  document.getElementsByClassName('containerr')[0].style.display = "inline-block";
   //   } else {
   //     alert('Mật khẩu sai! ');
   //     window.location.replace("http://localhost:3000");
@@ -177,19 +80,26 @@
       $(a_tag[i]).attr("href", window.location.href + $(a_tag[i]).attr('href'));
     }
   })
-  function functionSubmit() {
 
-    if (confirm("Bạn có chắc chắn nộp bài không ?")) alert("Đã nộp");
+  function functionSubmit() {
+    if (confirm("Bạn có chắc chắn nộp bài không ?")) {
+      alert('Đã nộp bài !');
+      $('#bt_submmit_fake').click();
+    }
   }
   window.onload = function() {
-    time = 30 * 60, r = document.getElementById('timer'), tmp = time;
+    time = <%= test.t_time %> * 60, r = document.getElementById('timer'), tmp = time;
     setInterval(function() {
-
       var c = tmp--,
         m = (c / 60) >> 0,
         s = (c - m * 60) + '';
       r.textContent = 'Thời gian làm bài ' + m + ':' + (s.length > 1 ? '' : '0') + s;
+      if (tmp <= 0 ) {
+        alert('Hết thời gian làm bài !');
+        $('#bt_submmit_fake').click();
+      }
       tmp != 0 || (tmp = time);
+
     }, 1000);
   }
 </script>

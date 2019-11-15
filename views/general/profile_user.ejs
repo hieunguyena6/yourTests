@@ -13,10 +13,6 @@
       <i class="fa fa-user"></i>
       <a></aclass> Thông tin cá nhân</a>
     </button>
-    <button class="tablinks" onclick="display_info(event, 'info_edit')">
-      <i class="fas fa-pen"></i>
-      <a> Chỉnh sửa thông tin</a>
-    </button>
     <button class="tablinks" onclick="display_info(event, 'do_test')">
       <i class="fa fa-book"></i>
       <a> Các bài thi đã đăng</a>
@@ -52,25 +48,6 @@
     </p>
   </div>
 
-  <div id="info_edit" class="profile-content" style="display: none;">
-    <p><b style="font-size: 30px;">Chỉnh sửa thông tin cá nhân</b></p>
-    <form action="/profile" method="post">
-      <div class="row form-group" style="margin-top:20px; ">
-        <label for="name_change" style="width: 150px;margin:0 20px;">Họ</label>
-        <input type="text" id="name_change" class="col-sm-6" name="firstname">
-      </div>
-      <div class="row form-group" style="margin-top:20px; ">
-        <label for="name_change" style="width: 150px;margin:0 20px;">Tên</label>
-        <input type="text" class="col-sm-6" name="lastname">
-      </div>
-      <div class="row form-group">
-        <label for="description" style="width: 150px;margin:0 20px;"> Mô tả về bản thân</label>
-        <textarea id="description" class="col-sm-6" style="height:100px;" name="des"></textarea>
-      </div>
-      <button type="submit" class="btn btn-success" style="margin:0 20px;">Thay đổi</button>
-    </form>
-  </div>
-
   <div id="do_test" class="profile-content" style="display: none;">
     <p><b>Tổng số bài thi đã đăng</b>: <%= tests.length %></p>
     <table class="table">
@@ -79,7 +56,6 @@
           <th scope="col">STT</th>
           <th scope="col">Tên bài thi</th>
           <th scope="col">Thời gian làm(phút)</th>
-          <th scope="col">Mật khẩu</th>
           <th scope="col">Hành động</th>
         </tr>
       </thead>
@@ -89,8 +65,7 @@
           <th scope="row"><%= i + 1 %></th>
           <td><%= tests[i].t_name %></td>
           <td><%= tests[i].t_time %></td>
-          <td><%= tests[i].t_password %></td>
-          <td><button class="btn btn-success" style="margin-right: 10px"><a href=<%= 'http://localhost:4000/tests/dotest/' + tests[i].t_id %>  style="color: white" target= "_blank">Xem bài thi</a></button><button class="btn btn-danger" onclick=<%= "delete_test(" + tests[i].t_id + ")"%>>Xóa</button></td>
+          <td><button class="btn btn-success" style="margin-right: 10px"><a href=<%= 'http://localhost:4000/tests/dotest/' + tests[i].t_id %>  style="color: white" target= "_blank">Xem bài thi</a></button></td>
         </tr>
         <% } %>
       </tbody>
@@ -155,24 +130,6 @@
 <!-- Active js -->
 <script src="js/active.js"></script>
 <script src="js/login.js"></script>
-<script>
-  function delete_test(id) {
-    $.ajax({
-      type: "DELETE",
-      url: '/tests/delete/' + id,
-      cache: false,
-      dataType: "json",
-      success: function() {
-        alert('Đã xóa bài test !');
-        window.location = '/profile';
-      },
-      error: function (xhr, error) {
-         console.debug(xhr);
-         console.debug(error);
-       },
-    });
-  }
-</script>
 </body>
 
 </html>

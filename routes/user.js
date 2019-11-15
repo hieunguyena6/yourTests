@@ -3,10 +3,17 @@ var router = express.Router();
 var User = require('../models/user');
 /* GET home page. */
 router.get('/', function(req, res) {
-  if (!req.session.user) {
+  if (!req.session.user) { 
     res.render('general/index', { message : req.flash('message')});
   }
-  else {res.render('general/index', {message : req.flash('message'), fullname : req.session.fullname })};
+  else {
+    if (req.session.isAdmin){
+      res.redirect('/admin');
+    } 
+    else {  
+      res.render('general/index', {message : req.flash('message'), fullname : req.session.fullname })
+    }
+  };
 });
 
 router.get('/login', function(req, res) {
@@ -22,21 +29,6 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-// router.get('/profile', function(req, res) {
-//   var query = "SELECT u_email,u_firstName,u_lastName,u_description from users WHERE u_id = " + req.session.user_id;
-//   db.query(query,async function(err, user){
-//     if (err) {
-//       console.log(query);
-//       res.redirect('/');
-//     }
-//     else {
-//       var tests = await db.query("select * from tests where u_id = " + req.session.user_id);
-//       console.log(tests);
-//       res.render('user/profile', {message : req.flash('message'), fullname : req.session.fullname, user : user[0] });
-//     }
-//   })
-// });
-
 router.get('/profile',async function(req, res) {
   let id = req.session.user_id;
   if (id) {
@@ -50,27 +42,34 @@ router.get('/profile',async function(req, res) {
 }
 });
 
-router.get('/profile/:id',async function(req, res) {
+router.get('/profile/:id', function(req, res) {
   var id = req.params.id;
-  var query = "SELECT u_email,u_firstName,u_lastName,u_description from users WHERE u_id = " + id;
-  db.query(query,async function(err, user){
-    if (err) {
-      console.log(query);
-      res.redirect('/');
-    }
-    else {
-      var tests = await db.query("select * from tests where u_id = " + id);
-      console.log(tests);
-      res.render('user/profile', {message : req.flash('message'), fullname : req.session.fullname, user : user[0] });
-    }
+  User.getDetailUser(id, function(err, user) {
+    User.getListQuestion(id, function(error, questions) {
+      User.getListTest(id, function(e, tests) {
+        res.render('general/profile_user', {message : req.flash('message'), fullname : req.session.fullname, user : user[0], tests: tests, questions: questions});
+      })
+    })
   })
 });
 
 router.get('/search', function(req, res) {
   var key = req.query.key;
-  if (!req.session.user) res.render('general/search', {message: ''});
-  else res.render('general/search', {message : '', fullname : req.session.fullname });
+  var que = "select u_id,u_firstname, u_lastName, u_email from users where u_email like '%" + key + "%'";
+  console.log(que);
+  db.query(que,function(e,users){
+    if (e) console.log(e);
+    else {
+      que = "select * from tests t inner join users u on u.u_id = t.u_id where t.t_name like '%" + key + "%'";
+      db.query(que,function(er,tests){
+        if (!req.session.user) res.render('general/search', {message: '', fullname: '', key: key, users: users, tests: tests});
+        else res.render('general/search', {message : '', fullname : req.session.fullname,key: key, users: users, tests: tests});
+      })
+    }
+  })
 });
+
+
 
 router.post('/register', function(req, res) {
     var post = req.body;
@@ -100,6 +99,8 @@ router.post('/login', function(req, res) {
     else {
       req.session.user_id = result[0].u_id;
       req.session.user = result[0].u_email;
+      req.session.isAdmin = result[0].u_role == 1;
+      console.log(req.session.isAdmin);
       req.session.fullname = result[0].u_firstName + " " + result[0].u_lastName;
       res.redirect('/');
     }
@@ -111,7 +112,6 @@ router.post('/profile', function(req, res) {
   var sql = 'update users set u_firstName = "' + post.firstname + '",u_lastName = "' + post.lastname + '", u_description = "' + post.des + '" where u_id = ' + req.session.user_id;
   db.query(sql, function(err,result) {
     if (err) {
-      console.log(sql);
       req.flash('message', 'Cập nhật thông tin bị lỗi');
       res.redirect('/profile');
     }
@@ -121,5 +121,7 @@ router.post('/profile', function(req, res) {
     }
   })
 })
+
+
 
 module.exports = router;
