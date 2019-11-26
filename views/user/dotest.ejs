@@ -57,23 +57,24 @@
 </div>
 </div>
 <input style="display: none" name = 'total_ques' type="text" value=<%= questions.length %> />
-<input style="display: none" name = 'name_test' type="text" value=<%= test.t_name %> />
+<input style="display: none" name = 'name_test' type="text" value='<%= test.t_name %>' />
+<input style="display: none" name = 'test_id' type="text" value=<%= test.t_id %> />
 <div style="margin-top: 20px;margin-bottom: 15px; text-align: center">
   <button class="btn btn-success " onclick="functionSubmit()" type="button">Kết thúc bài thi</button>
   <button style="display: none" id="bt_submmit_fake"></button>
 </div>
 </form>
 <script>
-  // $(document).ready(function() {
-  //   var pass = '<%= test.t_password %>';
-  //   var x = prompt('Nhập mật khẩu (Nếu không có để trống)');
-  //   if (x == pass) {
+  $(document).ready(function() {
+    var pass = '<%= test.t_password %>';
+    var x = prompt('Nhập mật khẩu (Nếu không có để trống)');
+    if (x == pass) {
   document.getElementsByClassName('containerr')[0].style.display = "inline-block";
-  //   } else {
-  //     alert('Mật khẩu sai! ');
-  //     window.location.replace("http://localhost:3000");
-  //   }
-  // });
+    } else {
+      alert('Mật khẩu sai! ');
+      window.location.replace("http://localhost:4000");
+    }
+  });
   $(document).ready(function() {
     var a_tag = $('.a_ques');
     for (var i = 0; i < a_tag.length; i++) {

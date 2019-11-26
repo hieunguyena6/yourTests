@@ -23,8 +23,7 @@
     </button>
     <button class="tablinks" onclick="display_info(event, 'ques_post')">
       <i class="fa fa-question-circle"></i>
-      <a> Các câu hỏi đã đăng</a>
-
+      <a>Lịch sử làm bài</a>
     </button>
   </div>
 
@@ -75,35 +74,55 @@
     <p><b>Tổng số bài thi đã đăng</b>: <%= tests.length %></p>
     <table class="table">
       <thead>
-        <tr>
+        <tr style="text-align: center;">
           <th scope="col">STT</th>
           <th scope="col">Tên bài thi</th>
           <th scope="col">Thời gian làm(phút)</th>
           <th scope="col">Mật khẩu</th>
+          <th scope="col">Tình trạng</th>
           <th scope="col">Hành động</th>
         </tr>
       </thead>
       <tbody>
         <% for (let i = 0; i < tests.length; i++) { %>
-        <tr>
+        <tr style="text-align: center;">
           <th scope="row"><%= i + 1 %></th>
           <td><%= tests[i].t_name %></td>
           <td><%= tests[i].t_time %></td>
           <td><%= tests[i].t_password %></td>
-          <td><button class="btn btn-success" style="margin-right: 10px"><a href=<%= 'http://localhost:4000/tests/dotest/' + tests[i].t_id %>  style="color: white" target= "_blank">Xem bài thi</a></button><button class="btn btn-danger" onclick=<%= "delete_test(" + tests[i].t_id + ")"%>>Xóa</button></td>
+          <td><%= tests[i].t_isActive ? 'Đang mở' : 'Đang đóng' %></td>
+          <td>
+            <button class="btn btn-success btn-sm"><a href=<%= 'http://localhost:4000/tests/dotest/' + tests[i].t_id %>  style="color: white" target= "_blank">Xem</a></button>
+            <button class="btn btn-warning btn-sm" onclick=<%= "close_test(" + tests[i].t_id + ")"%>><%= tests[i].t_isActive ? 'Đóng' : 'Mở' %></button>
+            <button class="btn btn-info btn-sm"><a href=<%= 'http://localhost:4000/tests/history/' + tests[i].t_id %>  style="color: white" target= "_blank">Lượt làm bài</a></button>
+            <button class="btn btn-danger btn-sm" onclick=<%= "delete_test(" + tests[i].t_id + ")"%>>Xóa</button>         
+          </td>
         </tr>
         <% } %>
       </tbody>
     </table>
   </div>
   <div id="ques_post" class="profile-content" style="display: none;">
-    <p><b>Các câu hỏi đã đăng:</b><%= questions.length %></p>
-    <p>Chi tiết: </p>
-    <% for (var i = 0; i< questions.length; i++) {  %>
-    <p>
-      <div><b>Câu <%= i+1 %>:</b><%= questions[i].q_content %> ?</div>
-    </p>
-    <% }%>
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Tên bài test</th>
+              <th scope="col">Gio làm</th>
+              <th scope="col">Điểm đạt được</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (i in dos) { %>
+            <tr>
+              <th scope="row"><%= dos[i].do_id %></th>
+              <td><%= dos[i].t_name %></td>
+              <td><%= dos[i].time %></td>
+              <td><%= dos[i].mark %></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
 
   </div>
 </div>
@@ -133,8 +152,8 @@
         <div class="col-12">
           <!-- Footer Logo -->
           <div class="footer-logo">
-            <a href="index.html">
-              <h4 style="color:bisque;">Yourtest</h4>
+            <a href="#">
+              <h4 style="color:bisque;">Yourtests</h4>
             </a>
           </div>
           <!-- Copywrite -->
@@ -157,20 +176,39 @@
 <script src="js/login.js"></script>
 <script>
   function delete_test(id) {
-    $.ajax({
-      type: "DELETE",
-      url: '/tests/delete/' + id,
-      cache: false,
-      dataType: "json",
-      success: function() {
-        alert('Đã xóa bài test !');
-        window.location = '/profile';
-      },
-      error: function (xhr, error) {
-         console.debug(xhr);
-         console.debug(error);
-       },
-    });
+    if (confirm("Bạn có chắc chắn xóa bài test này không ?")) {
+      $.ajax({
+        type: "DELETE",
+        url: '/tests/delete/' + id,
+        cache: false,
+        dataType: "json",
+        success: function () {
+          alert('Đã xóa bài test !');
+          window.location = '/profile';
+        },
+        error: function (xhr, error) {
+          console.debug(xhr);
+          console.debug(error);
+        },
+      });
+    }
+  }
+
+  function close_test(id) {
+      $.ajax({
+        type: "GET",
+        url: '/tests/close/' + id,
+        cache: false,
+        dataType: "json",
+        success: function () {
+          alert('Thành công !');
+          window.location = '/profile';
+        },
+        error: function (xhr, error) {
+          console.debug(xhr);
+          console.debug(error);
+        },
+      });
   }
 </script>
 </body>

@@ -1,0 +1,29 @@
+<% include general/header %>
+<h2 style="text-align: center;">Lịch sử làm bài bài thi <i><%= d[0].t_name %></i></h2>
+
+<div class="container">
+  <h6 style="text-align: right;"><i>Tổng số lượt làm bài: <%= d.length %></i> </h6>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Họ tên</th>
+        <th scope="col">Email</th>
+        <th scope="col">Giờ làm bài</th>
+        <th scope="col">Số Điểm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (i in d) { %>
+      <tr>
+        <th scope="row"><%= (+i + +1) %></th>
+        <td><a style="color: black;" href=<%= "/profile/" + d[i].u_id %> target="_blank"><%= d[i].u_firstName + ' ' + d[i].u_lastName %></a></td>
+        <td><a style="color: black;" href=<%= "/profile/" + d[i].u_id %> target="_blank"><%= d[i].u_email %></a></td>
+        <td><%= d[i].time %></td>
+        <td><h4><i><%= d[i].mark %></h4></i></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<% include general/footer %>

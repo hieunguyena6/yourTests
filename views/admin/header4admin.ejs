@@ -42,9 +42,10 @@
             <div class="classynav">
               <ul>
                 <li><a href="/">Trang chủ</a></li>
-                <li><a href="/questions/new">Thêm câu hỏi</a></li>
-                <li><a href="/tests/new">Tạo bài thi</a></li>
-                <li><a href="/tests">Làm bài thi</a></li>
+                <li><a href="/admin/user">Quản lý user</a></li>
+                <li><a href="/admin/test">Quản lý bài thi</a></li>
+                <li><a href="/admin/do_test">Các lượt làm bài thi</a></li>
+                <li><a href="/admin/log">Logs</a></li>
               </ul>
 
               <!-- Search Button -->
@@ -60,10 +61,9 @@
               <div class="login-state d-flex align-items-center">
                 <div class="user-name mr-30">
                   <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false"><%= fullname %></a>
+                    <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= fullname %></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
-                      <a class="dropdown-item" href="/profile">Thông tin cá nhân</a>
+                      <a class="dropdown-item" href="/admin">Trang quản trị</a>
                       <a class="dropdown-item" href="/logout">Đăng xuất</a>
                     </div>
                   </div>
@@ -85,18 +85,10 @@
       </div>
     </div>
   </header>
-  <% if (message.length > 0 && message != 'fail') { %>
+  <% if (message.length > 0) { %>
   <div class="alert alert-primary alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <%= message %>
   </div>
-  <% }%>
-  <script>
-    let m = '<%= message %>'
-    if (m == 'fail') {
-      alert('Chưa có lượt làm bài nào !');
-      var myWindow = window.open("", "_self");
-      myWindow.close();
-    }
-  </script>
+  <% } %>
   <!-- ##### Header Area End ##### -->

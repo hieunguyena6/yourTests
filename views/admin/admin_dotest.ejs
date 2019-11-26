@@ -32,32 +32,25 @@
     </a>
   </div>
   <div id="user_info" class="profile-content">
-    <h5 style="text-align: right;"><i>Tổng số user: <%= users.length %></i></h5>
+      <h5 style="text-align: right;"><i>Tổng lượt làm bài: <%= dos.length %></i></h5>
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Họ</th>
-          <th scope="col">Tên</th>
-          <th scope="col">Email</th>
-          <th scope="col">Mật khẩu</th>
-          <th scope="col">Hành động</th>
+          <th scope="col">Tên bài test</th>
+          <th scope="col">Người làm</th>
+          <th scope="col">Gio làm</th>
+          <th scope="col">Điểm đạt được</th>
         </tr>
       </thead>
       <tbody>
-        <% for (i in users) { %>
+        <% for (i in dos) { %>
         <tr>
-          <th scope="row"><%= users[i].u_id %></th>
-          <td><%= users[i].u_firstName %></td>
-          <td><%= users[i].u_lastName %></td>
-          <td><%= users[i].u_email %></td>
-          <td><%= users[i].u_password %></td>
-          <td>
-            <button class="btn btn-success btn-sm" onclick=<%= "upgrade_user(" + users[i].u_id + ")"%>>Admin</button>
-            <a href=<%= "/profile/" + users[i].u_id %> target="_blank"><button
-                class="btn btn-info btn-sm">Profile</button></a>
-            <button class="btn btn-danger btn-sm" onclick=<%= "delete_user(" + users[i].u_id + ")"%>>Xóa</button>
-          </td>
+          <th scope="row"><%= dos[i].do_id %></th>
+          <td><%= dos[i].t_name %></td>
+          <td><a href=<%= "/profile/" + dos[i].u_id %>><%= dos[i].u_email %></a></td>
+          <td><%= dos[i].time %></td>
+          <td><%= dos[i].mark %></td>
         </tr>
         <% } %>
       </tbody>
@@ -98,45 +91,7 @@
 <!-- Active js -->
 <script src="js/active.js"></script>
 <script src="js/login.js"></script>
-<script>
-  function delete_user(id) {
-    if (confirm("Bạn có chắc chắn xóa người dùng này không ?")) {
-      $.ajax({
-        type: "DELETE",
-        url: '/profile/' + id,
-        cache: false,
-        dataType: "json",
-        success: function () {
-          alert('Đã xóa user !');
-          location.reload();
-        },
-        error: function (xhr, error) {
-          console.debug(xhr);
-          console.debug(error);
-        },
-      });
-    }
-  }
 
-  function upgrade_user(id) {
-    if (confirm("Bạn có chắc chắn nâng người dùng này thành admin không ?")) {
-      $.ajax({
-        type: "get",
-        url: '/admin/upgrade/' + id,
-        cache: false,
-        dataType: "json",
-        success: function () {
-          alert('Đã upgrade user !');
-          location.reload();
-        },
-        error: function (xhr, error) {
-          console.debug(xhr);
-          console.debug(error);
-        },
-      });
-    }
-  }
-</script>
 </body>
 
 </html>
